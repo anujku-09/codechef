@@ -14,7 +14,7 @@ int main() {
         }
     }
     if(ones == n) {
-        cout << n << endl;
+        cout << n - 1 << endl;
         return 0;
     }
     vector<int> lft_ones(n, 0);
