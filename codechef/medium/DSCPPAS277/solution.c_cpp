@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    int ones = 0;
+    for(int i =0; i < n; i++){
+        cin >> a[i];
+        if(a[i] == 1){
+            ones++;
+        }
+    }
+    if(ones == n) {
+        cout << n << endl;
+        return 0;
+    }
+    vector<int> lft_ones(n, 0);
+    for(int i = 1; i < n; i++){
+        if(a[i - 1] == 1){
+            lft_ones[i] = lft_ones[i - 1] + 1;
+        }
+    }
+    vector<int> right_ones(n, 0);
+    for(int i = n - 2; i >= 0; i--){
+        if(a[i + 1] == 1){
+            right_ones[i] = right_ones[i + 1] + 1;
+        }
+    }
+    int ans = 0;
+    for(int i = 0; i < n; i++){
+        if(a[i] == 0){
+            int st = i;
+            while(i < n && a[i] == 0){
+                i++;
+            }
+            int end = i - 1;
+            int zero_cnt = end - st + 1;
+            int tot = lft_ones[st] + zero_cnt + right_ones[end];
+            ans = max(ans, tot);
+        } else {
+            i++;
+        }
+    }
+    cout << ans << "\n";
+}
