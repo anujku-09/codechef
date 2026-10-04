@@ -55,7 +55,7 @@ FLip all the elements as it is contiguous, then the arr would look like 1,1,1 an
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-04T13:51:23.904Z  
+**Submitted:** 2026-10-04T13:52:19.759Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -74,7 +74,7 @@ int main() {
         }
     }
     if(ones == n) {
-        cout << n << endl;
+        cout << n - 1 << endl;
         return 0;
     }
     vector<int> lft_ones(n, 0);
