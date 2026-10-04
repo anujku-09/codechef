@@ -55,7 +55,7 @@ FLip all the elements as it is contiguous, then the arr would look like 1,1,1 an
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-04T13:49:25.751Z  
+**Submitted:** 2026-10-04T13:51:23.904Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -90,7 +90,8 @@ int main() {
         }
     }
     int ans = 0;
-    for(int i = 0; i < n; i++){
+    int i = 0;
+    while(i < n){
         if(a[i] == 0){
             int st = i;
             while(i < n && a[i] == 0){
