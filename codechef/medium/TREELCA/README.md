@@ -42,7 +42,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-05T14:14:05.642Z  
+**Submitted:** 2026-10-05T14:19:08.904Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -58,9 +58,32 @@ int main() {
 	    adj[a].push_back(b);
 	    adj[b].push_back(a);
 	}
-	vector<int> parent(n + 1, 0);
-	veector<int> depth(n + 1, 0);
-	
+	vector<int> par(n + 1, 0);
+	vector<int> dep(n + 1, 0);
+	queue<int> q;
+	q.push(1);
+	par[1] = -1;
+	while(!q.empty()){
+	    int x = q.front();
+	    q.pop();
+	    for(int neigh : adj[x]){
+	        if(neigh == par[x]) continue;
+	        par[neigh] = x;
+	        dep[neigh] = dep[x] + 1;
+	        q.push(neigh);
+	    }
+	}
+	while(dep[u] > dep[v]){
+	    u = par[u];
+	}
+	while(dep[v] > dep[u]){
+	    v = par[v];
+	}
+	while(u != v){
+	    u = par[u];
+	    v =par[v];
+	}
+	cout << u << endl;
 }
 
 ```
