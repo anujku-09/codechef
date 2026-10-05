@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int n, u, v;
+	cin >> n >> u >> v;
+	int st_u = u, st_v = v;
+	vector<vector<int>> adj(n + 1);
+	for(int i = 0; i < n - 1; i++){
+	    int a, b;
+	    cin >> a >> b;
+	    adj[a].push_back(b);
+	    adj[b].push_back(a);
+	}
+	vector<int> par(n + 1, 0);
+	vector<int> dep(n + 1, 0);
+	queue<int> q;
+	q.push(1);
+	par[1] = -1;
+	while(!q.empty()){
+	    int node = q.front();
+	    q.pop();
+	    for(int neigh : adj[node]){
+	        if(neigh == par[node]) continue;
+	        par[neigh] = node;
+	        dep[neigh] = dep[node] + 1;
+	        q.push(neigh);
+	    }
+	}
+	while(dep[u] > dep[v]){
+	    u = par[u];
+	}
+	while(dep[v] > dep[u]){
+	    v = par[v];
+	}
+	while(u != v){
+	    u = par[u];
+	    v = par[v];
+	}
+	int lca = u;
+	int ans = dep[st_u] + dep[st_v] - 2*dep[lca];
+	cout << ans << endl;
+	return 0;
+}
