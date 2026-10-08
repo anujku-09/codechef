@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string shortestSubstring(const string& S, const string& T){
+    unordered_map<char, int> targetCnt, windowCnt;
+    for(char c : T){
+        targetCnt[c]++;
+    }
+    int lft = 0, rgt = 0, cnt = 0;
+    int minLen = INT_MAX, st = 0;
+    
+    while(rgt < S.length()){
+        if(targetCnt[S[rgt]] > 0){
+            windowCnt[S[rgt]]++;
+            if(windowCnt[S[rgt]] <= targetCnt[S[rgt]]){
+                cnt++;
+            }
+        }
+        while(cnt == T.length()){
+            if(rgt - lft + 1 < minLen) {
+                minLen = rgt - lft + 1;
+                st = lft;
+            }
+            if(targetCnt[S[lft]] > 0){
+                windowCnt[S[lft]]--;
+                if(windowCnt[S[lft]] < targetCnt[S[lft]]){
+                    cnt--;
+                }
+            }
+            lft++;
+        }
+        rgt--;
+    }
+    return minLen == INT_MAX ? "-1" : S.substr(st, minLen);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int T;
+    cin >> T;
+    while(T--){
+        int N, M;
+        cin >> N >> M;
+        string S, T;
+        cin >> S >> T;
+        
+        cout << shortestSubstring(S, T) << "\n";
+    }
+    return 0;
+}
