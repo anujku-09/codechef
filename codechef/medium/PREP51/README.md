@@ -63,7 +63,7 @@ ac
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-08T05:58:34.212Z  
+**Submitted:** 2026-10-08T06:00:26.434Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
