@@ -63,7 +63,7 @@ ac
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-08T05:52:19.365Z  
+**Submitted:** 2026-10-08T05:53:04.375Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -95,9 +95,9 @@ string shortestSubstring(const string& S, const string& T){
                     cnt--;
                 }
             }
-            lft++;
+            lft--;
         }
-        rgt--;
+        rgt++;
     }
     return minLen == INT_MAX ? "-1" : S.substr(st, minLen);
 }
