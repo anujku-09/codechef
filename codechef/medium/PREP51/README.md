@@ -63,7 +63,7 @@ ac
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-08T05:53:04.375Z  
+**Submitted:** 2026-10-08T05:58:34.212Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -95,7 +95,7 @@ string shortestSubstring(const string& S, const string& T){
                     cnt--;
                 }
             }
-            lft--;
+            lft++;
         }
         rgt++;
     }
