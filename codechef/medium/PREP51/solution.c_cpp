@@ -27,7 +27,7 @@ string shortestSubstring(const string& S, const string& T){
                     cnt--;
                 }
             }
-            lft--;
+            lft++;
         }
         rgt++;
     }
