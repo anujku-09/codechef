@@ -27,9 +27,9 @@ string shortestSubstring(const string& S, const string& T){
                     cnt--;
                 }
             }
-            lft++;
+            lft--;
         }
-        rgt--;
+        rgt++;
     }
     return minLen == INT_MAX ? "-1" : S.substr(st, minLen);
 }
