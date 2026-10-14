@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(){
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    if(n <= 2){
+        cout << 0 << "\n";
+        return;
+    }
+
+    sort(a.begin(), a.end());
+    int drop_smallest = a[n - 1] - a[1];
+    int drop_largest = a[n - 2] - a[0];
+
+    cout << min(drop_smallest, drop_largest) << "\n";
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t;
+    if (cin >> t) {
+        while (t--) {
+            solve();
+        }
+    }
+
+    return 0;
+}
