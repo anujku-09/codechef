@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+multiset<long long> low, high;
+
+void balance() {
+    while (low.size() > high.size() + 1) {
+        auto it = prev(low.end());
+        high.insert(*it);
+        low.erase(it);
+    }
+    while (low.size() < high.size()) {
+        auto it = high.begin();
+        low.insert(*it);
+        high.erase(it);
+    }
+}
+
+void add(long long val) {
+    if (low.empty() || val <= *low.rbegin()) {
+        low.insert(val);
+    } else {
+        high.insert(val);
+    }
+    balance();
+}
+
+void remove_val(long long val) {
+    auto it = low.find(val);
+    if (it != low.end()) {
+        low.erase(it);
+    } else {
+        it = high.find(val);
+        if (it != high.end()) {
+            high.erase(it);
+        }
+    }
+    balance();
+}
+
+double get_median(int k) {
+    if (k % 2 != 0) {
+        return (double)*low.rbegin();
+    } else {
+        return ((double)*low.rbegin() + (double)*high.begin()) / 2.0;
+    }
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int n, k;
+    if (!(cin >> n >> k)) return 0;
+
+    vector<long long> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    for (int i = 0; i < k; i++) {
+        add(a[i]);
+    }
+
+    cout << fixed << setprecision(1);
+    cout << get_median(k) << "\n";
+
+    for (int i = k; i < n; i++) {
+        add(a[i]);
+        remove_val(a[i - k]);
+        cout << get_median(k) << "\n";
+    }
+
+    return 0;
+}
