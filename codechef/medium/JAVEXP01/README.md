@@ -304,23 +304,27 @@ Exiting application...
 **Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-07T08:38:48.397Z  
+**Submitted:** 2026-10-14T13:30:49.126Z  
 
 ```cpp
-        while (!scanner.hasNextInt()) { System.out.print(p); scanner.next(); }
-        int v = scanner.nextInt(); scanner.nextLine(); return v;
-    }
-    private double readDouble(String p) {
-        System.out.print(p);
-        while (!scanner.hasNextDouble()) { System.out.print(p); scanner.next(); }
-        double v = scanner.nextDouble(); scanner.nextLine(); return v;
-    }
-    private String readLine(String p) {
-        System.out.print(p);
-        return scanner.nextLine();
+
+import com.example.controller.MovieController;
+import com.example.util.DatabaseInitializer;
+import com.example.view.MovieView;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        DatabaseInitializer.initialize();
+
+        MovieController controller = new MovieController();
+
+        MovieView view = new MovieView(controller);
+
+        view.start();
     }
 }
-
 ```
 
 ---
