@@ -64,43 +64,32 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-14T12:50:51.237Z  
+**Submitted:** 2026-10-14T12:51:24.861Z  
 
 ```c_cpp
 class Solution {
-private:
-    int atMost(vector<int>& nums, int k) {
-        if (k <= 0) return 0;
-        
-        int n = nums.size();
-        vector<int> freq(n + 1, 0);
-        int left = 0, distinct = 0, count = 0;
-        
-        for (int right = 0; right < n; right++) {
-            if (freq[nums[right]] == 0) {
-                distinct++;
-            }
-            freq[nums[right]]++;
-            
-            while (distinct > k) {
-                freq[nums[left]]--;
-                if (freq[nums[left]] == 0) {
-                    distinct--;
-                }
+public:
+    int atMostK(vector<int>& nums, int k) {
+        unordered_map<int, int> count;
+        int left = 0, res = 0;
+        for (int right = 0; right < nums.size(); right++) {
+            if (count[nums[right]] == 0) k--;
+            count[nums[right]]++;
+            while (k < 0) {
+                count[nums[left]]--;
+                if (count[nums[left]] == 0) k++;
                 left++;
             }
-            
-            count += (right - left + 1);
+            res += right - left + 1;
         }
-        
-        return count;
+        return res;
     }
-
-public:
+    
     int subarraysWithKDistinct(vector<int>& nums, int k) {
-        return atMost(nums, k) - atMost(nums, k - 1);
+        return atMostK(nums, k) - atMostK(nums, k - 1);
     }
 };
+
 ```
 
 ---
