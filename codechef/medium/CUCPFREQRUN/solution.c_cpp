@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int longestStableRun(const string& s, int left, int right, int k) {
+    if (right - left < k) return 0;
+
+    int freq[26] = {0};
+    for (int i = left; i < right; i++) {
+        freq[s[i] - 'a']++;
+    }
+
+    for (int mid = left; mid < right; mid++) {
+        if (freq[s[mid] - 'a'] > 0 && freq[s[mid] - 'a'] < k) {
+            int next_mid = mid + 1;
+            while (next_mid < right && freq[s[next_mid] - 'a'] < k) {
+                next_mid++;
+            }
+            return max(longestStableRun(s, left, mid, k),
+                       longestStableRun(s, next_mid, right, k));
+        }
+    }
+    return right - left;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int n, k;
+    if (!(cin >> n >> k)) return 0;
+
+    string s;
+    cin >> s;
+
+    cout << longestStableRun(s, 0, n, k) << "\n";
+
+    return 0;
+}
