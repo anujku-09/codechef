@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void run_case() {
+    long long n;
+    cin >> n;
+
+    long long count = 0;
+    for (long long d = 1; d <= n / 2; d++) {
+        count += (n - d) / d;
+    }
+    cout << count << "\n";
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t;
+    if (cin >> t) {
+        while (t--) {
+            run_case();
+        }
+    }
+    return 0;
+}
