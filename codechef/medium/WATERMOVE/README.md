@@ -63,7 +63,7 @@ At the end, the array is $[0, 5, 0, 5, 5]$, and the maximum is $5$.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-14T15:58:11.110Z  
+**Submitted:** 2026-10-14T16:22:53.279Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -73,31 +73,22 @@ void solve() {
     int n, k;
     cin >> n >> k;
 
-    vector<long long> a(n);
-    long long sum = 0;
+    vector<int> a(n);
     for (int i = 0; i < n; i++) {
         cin >> a[i];
-        sum += a[i];
     }
 
-    if(k >= n - 1){
-        cout << sum << "\n";
+    if (n == 2) {
+        cout << a[0] + a[1] << "\n";
         return;
     }
-    sort(a.begin(), a.end());
-    int rem = n - k;
-    long long ans = 0;
 
-    for (int i = 0; i < rem - 1; i++){
-        ans = max(ans, a[k + 1 + i]);
-    }
-    
-    long long prefix = 0;
-    for (int i = 0; i <= k; i++) {
-        prefix += a[i];
-    }
-    ans = max(ans, prefix);
-    cout << ans << endl;
+    sort(a.begin(), a.end());
+
+    int combined = a[0] + a[1];
+    int ans = max(a[n - 1], combined);
+
+    cout << ans << "\n";
 }
 
 int main() {
