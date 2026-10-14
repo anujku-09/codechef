@@ -54,21 +54,35 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-14T16:25:11.421Z  
+**Submitted:** 2026-10-14T16:27:12.376Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
-void run_case() {
+void solve() {
     long long n;
     cin >> n;
 
-    long long count = 0;
-    for (long long d = 1; d <= n / 2; d++) {
-        count += (n - d) / d;
+    long long max_d = n / 2;
+    long long total = 0;
+
+    long long left = 1;
+    while (left <= max_d) {
+        long long val = n / left;
+        long long right = n / val;
+        
+        if (right > max_d) {
+            right = max_d;
+        }
+
+        long long count = right - left + 1;
+        total += count * (val - 1);
+
+        left = right + 1;
     }
-    cout << count << "\n";
+
+    cout << total << "\n";
 }
 
 int main() {
@@ -78,7 +92,7 @@ int main() {
     int t;
     if (cin >> t) {
         while (t--) {
-            run_case();
+            solve();
         }
     }
     return 0;
