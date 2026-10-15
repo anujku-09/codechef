@@ -1,4 +1,4 @@
-# Replace __ in print statement to print (number - 1)
+# Replace __ with 25
 
-number = 20
-print(number - 1)
+age = 25
+print(age)
