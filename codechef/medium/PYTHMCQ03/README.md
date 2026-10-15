@@ -4,16 +4,24 @@
 
 ## Problem
 
-_Description not available._
+### MCQ on output in separate lines
+
+Which of the following Python code snippets will produce this output?
+
+```
+Hello
+World
+
+```
 
 ## Solution
 
-**Language:** Python  
+**Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-15T17:35:46.551Z  
+**Submitted:** 2026-10-15T17:35:58.284Z  
 
-```py
+```cpp
 # Update the '_' below to solve the problem
 
 print(11 * 13)          # Area of the rectangle
