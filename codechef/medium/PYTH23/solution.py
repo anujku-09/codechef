@@ -1,5 +1,7 @@
 # Solution as follows
 
-a = 23
-b = 20
-print(a + b)
+length = 45
+width = 76
+area = length * width
+
+print(area)
