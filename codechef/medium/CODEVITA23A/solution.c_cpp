@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int l, k;
+	if(!(cin >> l >> k)) return 0;
+	
+	int zeros = l - k;
+	if(zeros == 0) {
+	    cout << 0 << "\n";
+        return 0;
+	}
+	int slots = k + 1;
+	int ans = (zeros + slots - 1) / slots;
+    cout << ans << "\n";
+    return 0;
+}
