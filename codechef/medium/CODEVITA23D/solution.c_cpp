@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	long long n;
+	cin >> n;
+	long long primes = 0;
+	for(long long d = 2; d * d <= n; d++){
+	    if(n % d == 0) {
+	        primes++;
+	        while(n % d == 0) {
+	            n /= d;
+	        }
+	    }
+	}
+	if(n > 1) {
+	    primes++;
+	}
+	long long ans = (1LL << primes )- 1;
+	cout << ans << endl;
+	return 0;
+}
