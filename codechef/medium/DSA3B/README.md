@@ -6,20 +6,20 @@
 
 ### Sliding Window Maximum
 
- ***Sliding Window Maximum** *
+You are given an array $A = [A_1, A_2, \ldots, A_N]$ of $N$ integers and an integer $X$.
 
-You are given an array $A$ consisting of $N$ integers and an integer $X$.
+Find the maximum element in each contiguous subarray of size $X$, considering the subarrays from left to right.
 
-Find the  **maximum**  element in each subarray of size $X$.
-Print $(N-X+1)$ space-separated integers where the $i^{th}$ integer denotes the maximum element of the $i^{th}$ subarray of size $X$ from left.
+The first output value is $\max(A_1, A_2, \ldots, A_X)$, the second, if it exists, is $\max(A_2, A_3, \ldots, A_{X+1})$, and so on, until the last value $\max(A_{N-X+1}, \ldots, A_N)$.
+
+Print these $N-X+1$ maximum values as space-separated integers.
 
 ### Input Format
 - The first line of input will contain a single integer $T$, denoting the number of test cases.
 - Each test case consists of multiple lines of input. The first line of each test case contains two space-separated integers $N$ and $X$ — the number of elements in the array and the size of subarrays. The next line contains $N$ space-separated integers, the elements of array $A$.
 ### Output Format
 
-For each test case, output on a new line, the  **maximum**  element in each subarray of size $X$.
-Print $(N-X+1)$ space-separated integers where the $i^{th}$ integer denotes the maximum element of the $i^{th}$ subarray of size $X$ from left.
+For each test case, print $N-X+1$ space-separated integers on a single line. The $i$-th integer must be $\max(A_i, A_{i+1}, \ldots, A_{i+X-1})$, for $1 \le i \le N-X+1$.
 
 ### Constraints
 - $1 \leq T \leq 100$
@@ -59,7 +59,7 @@ Output
 - The maximum element in the subarray $[2, 3]$ is $3$.
 - The maximum element in the subarray $[3, 4]$ is $4$.
 
-Note that the subarrays are traverses from left to right.
+Note that the subarrays are traversed from left to right.
 
  **Test case $2$:**  For the array $A = [4, 3, 2, 1]$:
 
@@ -77,43 +77,33 @@ Note that the subarrays are traverses from left to right.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-04T12:25:10.880Z  
+**Submitted:** 2026-10-19T16:27:50.011Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
-void solve(){
-    int n, x;
-    cin >> n >> x;
-    vector<int> arr(n);
-    for(int i = 0; i < n; i++){
-        cin >> arr[i];
-    }
-    deque<int> dq;
-    for(int  i = 0; i < n; i++){
-        while(!dq.empty() && dq.front() <= i - x){
-            dq.pop_front();
-        }
-        while(!dq.empty() && arr[dq.back()] <= arr[i]){
-            dq.pop_back();
-        }
-        dq.push_back(i);
-        
-        if(i >= x - 1){
-            cout << arr[dq.front()] << (i == n - 1 ? "" : " ");
-        }
-    }
-    cout << "\n";
-}
-
 int main() {
     int t;
     cin >> t;
     while(t--){
-        solve();
+        int n, x;
+        cin >> n >> x;
+        int a[n];
+        for(int i = 0; i < n; i++){
+            cin >> a[i];
+        }
+        for(int i = 0; i <= n - x; i++){
+            int mx = a[i];
+            for(int j = i + 1; j < i; j++){
+                if(a[j] > mx){
+                    mx = a[j];
+                }
+            }
+            cout << mx << " ";
+        }
+        cout << endl;
     }
-	return 0;
 }
 
 ```
