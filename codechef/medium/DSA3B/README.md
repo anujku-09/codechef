@@ -77,7 +77,7 @@ Note that the subarrays are traversed from left to right.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-19T16:28:06.898Z  
+**Submitted:** 2026-10-19T16:28:48.237Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -95,7 +95,7 @@ int main() {
         }
         for(int i = 0; i <= n - x; i++){
             int mx = a[i];
-            for(int j = i + 1; j < i; j++){
+            for(int j = i + 1; j < i + x; j++){
                 if(a[j] > mx){
                     mx = a[j];
                 }
