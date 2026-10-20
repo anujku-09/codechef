@@ -65,7 +65,7 @@ $1$ is not considered square free. $4, 9$ and $36$ are perfect squares, and $8,1
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-18T16:34:27.256Z  
+**Submitted:** 2026-10-20T17:30:39.980Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
