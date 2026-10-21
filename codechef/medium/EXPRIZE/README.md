@@ -53,7 +53,7 @@ Test case $1$: $14 = 1 + 2 + 4 + 7$ uses $K = 4$.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-21T15:46:27.750Z  
+**Submitted:** 2026-10-21T15:47:02.607Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
