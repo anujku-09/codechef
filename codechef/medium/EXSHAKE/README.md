@@ -61,7 +61,7 @@ Test case $1$: Inviting the groups with $1$ and $2$ people gives $3$ people and 
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-21T15:21:42.463Z  
+**Submitted:** 2026-10-21T15:22:34.464Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -76,6 +76,7 @@ int main() {
 	else {
 	    cout << y - x - 1;
 	}
+	return 0;
 }
 
 ```
