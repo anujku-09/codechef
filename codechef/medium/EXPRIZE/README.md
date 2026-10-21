@@ -53,7 +53,7 @@ Test case $1$: $14 = 1 + 2 + 4 + 7$ uses $K = 4$.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-21T15:47:16.951Z  
+**Submitted:** 2026-10-21T15:47:46.406Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -74,7 +74,8 @@ int main() {
 	        if(sum <= n) {
 	            ans = mid;
 	            low = mid + 1;
-	        } else {
+	        } 
+	        else {
 	            high = mid - 1;
 	        }
 	    }
