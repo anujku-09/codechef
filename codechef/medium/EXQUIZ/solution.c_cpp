@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, s;
+        cin >> n >> s;
+        int ans = -1;
+        for(int c= 0; c <= n; c++) {
+            for(int w = 0; w <= n - c; w++) {
+                if(4 * c - w == s) {
+                    int attempts = c + w;
+                    if(ans = -1 || attempts < ans) {
+                        ans = attempts;
+                    }
+                }
+            }
+        }
+        cout << ans << endl;
+    }
+}
