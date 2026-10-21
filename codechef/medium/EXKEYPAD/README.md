@@ -53,7 +53,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-21T15:55:00.808Z  
+**Submitted:** 2026-10-21T16:05:40.529Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -68,25 +68,35 @@ int main() {
 	    cin >> n >> d;
 	    
 	    while(true) {
-	        long long temp = n;
-	        bool found = false;
-	        if(temp ==0 && d == 0) {
-	            found = true;
-	        }
-	        
-	        while(temp > 0) {
-	            int dig = temp % 10;
-	            if(dig == d) {
-	                found = true;
+	        string s = to_string(n);
+	        int pos = -1;
+	        for(int i = 0; i < s.size(); i++) {
+	            if(s[i] == char('0' + d)) {
+	                pos = i;
 	                break;
 	            }
-	            temp = temp / 10;
 	        }
-	        if(found == false) {
+	        if(pos == -1) {
 	            cout << n << endl;
 	            break;
 	        }
-	        n++;
+	        bool chnge = false;
+	        for(int i = pos; i >= 0; i--) {
+	            if(s[i] < '9') {
+	                s[i]++;
+	                chnge = true;
+	                break;
+	            }
+	            s[i] = '0';
+	        }
+	        if(!chnge) {
+	            s = "1" + s;
+	        }
+	        for(int i = pos + 1; i < s.size(); i++) {
+	            s[i] = '0';
+	        }
+	        
+	        n = stoll(s);
 	    }
 	}
 }
