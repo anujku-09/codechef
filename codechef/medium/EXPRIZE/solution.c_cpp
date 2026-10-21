@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin >> t;
+	while(t--) {
+	    long long n;
+	    cin >> n;
+	    long long low = 1, high = 2000000;
+	    long long ans = 1;
+	    while(low <= high) {
+	        long long mid = low + (high - low) / 2;
+	        long long sum = (mid * mid * mid + 5 * mid) / 6;
+	        
+	        if(sum <= n) {
+	            ans = mid;
+	            low = mid + 1;
+	        } else {
+	            high = mid - 1;
+	        }
+	    }
+	    cout << ans << endl;
+	}
+}
