@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin >> t;
+	while(t--) {
+	    long long n;
+	    int d;
+	    cin >> n >> d;
+	    
+	    while(true) {
+	        long long temp = n;
+	        bool found = false;
+	        if(temp ==0 && d == 0) {
+	            found = true;
+	        }
+	        
+	        while(temp > 0) {
+	            int dig = temp % 10;
+	            if(dig == d) {
+	                found = true;
+	                break;
+	            }
+	            temp = temp / 10;
+	        }
+	        if(found == false) {
+	            cout << n << endl;
+	            break;
+	        }
+	        n++;
+	    }
+	}
+}
