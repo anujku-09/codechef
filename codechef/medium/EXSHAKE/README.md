@@ -58,12 +58,12 @@ Test case $1$: Inviting the groups with $1$ and $2$ people gives $3$ people and 
 
 ## Solution
 
-**Language:** c_cpp  
+**Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-21T15:22:34.464Z  
+**Submitted:** 2026-10-21T15:23:22.435Z  
 
-```c_cpp
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
