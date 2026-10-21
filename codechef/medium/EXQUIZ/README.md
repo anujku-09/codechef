@@ -57,7 +57,7 @@ Test case $4$: Since the final score is $0$, all questions can be skipped.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-21T15:37:09.219Z  
+**Submitted:** 2026-10-21T15:37:55.929Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -74,7 +74,7 @@ int main() {
             for(int w = 0; w <= n - c; w++) {
                 if(4 * c - w == s) {
                     int attempts = c + w;
-                    if(ans = -1 || attempts < ans) {
+                    if(ans == -1 || attempts < ans) {
                         ans = attempts;
                     }
                 }
