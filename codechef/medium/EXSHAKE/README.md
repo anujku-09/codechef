@@ -58,44 +58,25 @@ Test case $1$: Inviting the groups with $1$ and $2$ people gives $3$ people and 
 
 ## Solution
 
-**Language:** c_cpp  
+**Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-21T15:28:15.727Z  
+**Submitted:** 2026-10-21T15:23:25.330Z  
 
-```c_cpp
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	int t;
-	cin >> t;
-	while(t--) {
-	    int n; long long m;
-	    cin >> n >> m;
-
-	int a[100];
-	for(int i= 0; i < n; i++){
-	    cin >> a[i];
+	int x, y;
+	cin >> x >>y;
+	if(x > y) {
+	    cout << x - y - 1;
 	}
-	sort(a, a+n);
-	
-	long long people = 0;
-	int grps = 0;
-	
-	for(int i = 0; i < n; i++){
-	    long long tot = people + a[i];
-	    long long h_shake = tot * (tot - 1) / 2;
-	    
-	    if(h_shake <= m) {
-	        people = tot;
-	        grps++;
-	    } else {
-	        break;
-	    }
+	else {
+	    cout << y - x - 1;
 	}
-	cout << grps << endl;
-	}
+	return 0;
 }
 
 ```
