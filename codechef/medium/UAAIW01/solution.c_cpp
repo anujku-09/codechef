@@ -1,0 +1,35 @@
+vector<int> findLargestDivisibleSubset(vector<int>& inputNumbers) {
+    int n = inputNumbers.size();
+    if(n == 0) return {};
+    
+    
+    
+    sort(inputNumbers.begin(), inputNumbers.end());
+    vector<int> dp(n, 1);
+    vector<int> parent(n, -1);
+    
+    int mx_len = 1;
+    int max_idx = 0;
+    
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < i; j++) {
+            if(inputNumbers[i] % inputNumbers[j] == 0) {
+                if(dp[j] + 1 > dp[i]) {
+                    dp[i] = dp[j] + 1;
+                    parent[i] = j;
+                }
+            }
+        }
+        if(dp[i]  > mx_len) {
+            mx_len = dp[i];
+            max_idx = i;
+        }
+    }
+    vector<int> res;
+    int curr = max_idx;
+    while(curr != -1) {
+        res.push_back(inputNumbers[curr]);
+        curr = parent[curr];
+    }
+    return res;
+}
