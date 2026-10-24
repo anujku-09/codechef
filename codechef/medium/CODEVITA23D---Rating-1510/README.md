@@ -65,7 +65,7 @@ $1$ is not considered square free. $4, 9$ and $36$ are perfect squares, and $8,1
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-24T16:26:50.409Z  
+**Submitted:** 2026-10-24T16:36:12.282Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -74,23 +74,41 @@ using namespace std;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-	long long n;
+	long int n;
+	double sqnum;
+	long int i, j = 0, chksqr;
+	vector<long int> temp;
+	int cnt = 0, k;
+	
 	cin >> n;
-	long long primes = 0;
-	for(long long d = 2; d * d <= n; d++){
-	    if(n % d == 0) {
-	        primes++;
-	        while(n % d == 0) {
-	            n /= d;
+	
+	for(i = 2; i <= n /2; i++) {
+	    if(n % i == 0) {
+	        cnt++;
+	        sqnum = sqrt(i);
+	        chksqr = sqnum;
+	        
+	        if(chksqr == sqnum) {
+	            cnt--;
+	            temp.push_back(i);
+	            j++;
+	        }
+	        else{
+	            for(k = 0; k < j; k++) {
+	                if(i > temp[k] && j != 0) {
+	                    if(i % temp[k] == 0) {
+	                        cnt--;
+	                        k = j + 1;
+	                    }
+	                }
+	                else{
+	                    break;
+	                }
+	            }
 	        }
 	    }
 	}
-	if(n > 1) {
-	    primes++;
-	}
-	long long ans = (1LL << primes )- 1;
-	cout << ans << endl;
-	return 0;
+	cout << cnt << endl;
 }
 
 ```
