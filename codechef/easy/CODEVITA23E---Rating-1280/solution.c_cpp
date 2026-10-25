@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string smallest_lexicographical_string(const string& p, const string& s) {
+    unordered_map<char, int> order_map;
+    for(int i = 0; i < p.size(); i++) {
+        order_map[p[i]] = i;
+    }
+    vector<char> sorted_s(s.begin(), s.end());
+    sort(sorted_s.begin(), sorted_s.end(), [&](char a, char b) {
+        return order_map[a] < order_map[b];
+    });
+    return string(sorted_s.begin(), sorted_s.end());
+}
+int main() {
+	int t;
+	cin >> t;
+	cin.ignore();
+	for(int i = 0; i < t; i++) {
+	    string p, s;
+	    getline(cin, p);
+	    getline(cin, s);
+	    
+	    string res = smallest_lexicographical_string(p, s);
+	        cout << res << endl;
+	}
+}
