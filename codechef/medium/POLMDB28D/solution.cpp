@@ -1,20 +1,16 @@
-const book = db.books.findOne({
+const updatedBook = db.books.findOne({
   title: "The Great Gatsby"
 });
-// --- STEP 2: READ ---
-// Find the book using its title
+print("Book after borrowing:");
+printjson(updatedBook);
 
-
-db.books.insertOne({
-  title: "The Great Gatsby",
-  author: "F. Scott Fitzgerald",
-  copies: 5,
-  is_available: true
+// --- STEP 4: DELETE ---
+// Delete the book using its title
+db.books.deleteOne({
+  title: "The Great Gatsby"
 });
-
-db = connect('mongodb://localhost:27017/library_db');
-
-db.books.deleteMany({});
-
-// --- STEP 1: CREATE ---
-// Insert a new book document
+// Display final collection details
+const count = db.books.countDocuments();
+const allBooks = db.books.find().toArray();
+print("Total documents in 'books' collection: " + count);
+printjson(allBooks);
