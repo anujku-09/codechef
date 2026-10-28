@@ -30,6 +30,6 @@ int main() {
                 extra = max(extra, 1);
             }
         }
-        cout << ans << endl;
+        cout << ans + extra << endl;
     }
 }
