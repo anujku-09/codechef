@@ -68,7 +68,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-28T16:05:11.649Z  
+**Submitted:** 2026-10-28T16:08:51.159Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -95,13 +95,15 @@ int main() {
         }
         int extra = 0;
         
-        for(int i = 0; i < n - 1; i++) {
-            if(a[i] + 1 == a[i + 1]) {
-                extra = max(extra, 1);
+        for(int i = 0; i < n; i++) {
+            int gain = 0;
+            if(i > 0 && a[i - 1] == a[i] + 1 ) {
+                gain++;
             }
-            if(a[i] == a[i + 1] + 1){
-                extra = max(extra, 1);
+            if(i < n - 1 && a[i + 1] == a[i] + 1){
+                gain++;
             }
+            extra = max(extra, gain);
         }
         cout << ans + extra << endl;
     }
