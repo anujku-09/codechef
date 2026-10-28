@@ -68,7 +68,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-28T16:04:38.997Z  
+**Submitted:** 2026-10-28T16:05:11.649Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -103,7 +103,7 @@ int main() {
                 extra = max(extra, 1);
             }
         }
-        cout << ans << endl;
+        cout << ans + extra << endl;
     }
 }
 ```
