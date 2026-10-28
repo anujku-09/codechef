@@ -68,52 +68,54 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-28T15:59:24.704Z  
+**Submitted:** 2026-10-28T16:00:14.680Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
+
 using namespace std;
 
 int main() {
-	int t;
-	cin >> t;
-	while(t--) {
-	    int n; 
-	    cin >> n;
-	    vector<long long> a(n);
-	    
-	    for(int i = 0; i < n; i++) {
-	        cin >> a[i];
-	    }
-	    int ans = 0;
-	    
-	    for(int i = 0; i < n - 1;i++) {
-	        if(a[i] == a[i + 1]) {
-	            ans++;
-	        }
-	    }
-	    for(int l = 0; l < n; l++) {
-	        for(int r = l; r < n; r++) {
-	            int score = 0;
-	            
-	            for(int i = 0; i < n -1; i ++) {
-	                long long x = a[i];
-	                long long y = a[i + 1];
-	                if (i >= l && i <= r) {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector < long long > a(n);
+
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+        }
+        int ans = 0;
+
+        for (int i = 0; i < n - 1; i++) {
+            if (a[i] == a[i + 1]) {
+                ans++;
+            }
+        }
+        for (int l = 0; l < n; l++) {
+            for (int r = l; r < n; r++) {
+                int score = 0;
+
+                for (int i = 0; i < n - 1; i++) {
+                    long long x = a[i];
+                    long long y = a[i + 1];
+                    if (i >= l && i <= r) {
                         x++;
                     }
-                    if(i + 1 >= l && i + 1 <= r) {
+                    if(i + 1 >= l && i + 1 <= r){
                         y++;
                     }
-                    if (x == y) {
+                    if(x == y{
                         score++;
                     }
-	            }
-	        }
-	    }
-	}
+                }
+                ans = max(ans, score);
+            }
+        }
+        cout << ans << endl;
+    }
 }
-
 ```
 
 ---
