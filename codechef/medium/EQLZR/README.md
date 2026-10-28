@@ -68,7 +68,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-28T16:00:34.864Z  
+**Submitted:** 2026-10-28T16:04:38.997Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -93,24 +93,14 @@ int main() {
                 ans++;
             }
         }
-        for (int l = 0; l < n; l++) {
-            for (int r = l; r < n; r++) {
-                int score = 0;
-
-                for (int i = 0; i < n - 1; i++) {
-                    long long x = a[i];
-                    long long y = a[i + 1];
-                    if (i >= l && i <= r) {
-                        x++;
-                    }
-                    if(i + 1 >= l && i + 1 <= r){
-                        y++;
-                    }
-                    if(x == y){
-                        score++;
-                    }
-                }
-                ans = max(ans, score);
+        int extra = 0;
+        
+        for(int i = 0; i < n - 1; i++) {
+            if(a[i] + 1 == a[i + 1]) {
+                extra = max(extra, 1);
+            }
+            if(a[i] == a[i + 1] + 1){
+                extra = max(extra, 1);
             }
         }
         cout << ans << endl;
