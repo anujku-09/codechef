@@ -68,7 +68,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-28T16:00:14.680Z  
+**Submitted:** 2026-10-28T16:00:34.864Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -106,7 +106,7 @@ int main() {
                     if(i + 1 >= l && i + 1 <= r){
                         y++;
                     }
-                    if(x == y{
+                    if(x == y){
                         score++;
                     }
                 }
