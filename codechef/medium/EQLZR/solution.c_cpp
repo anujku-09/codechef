@@ -33,7 +33,7 @@ int main() {
                     if(i + 1 >= l && i + 1 <= r){
                         y++;
                     }
-                    if(x == y{
+                    if(x == y){
                         score++;
                     }
                 }
