@@ -68,7 +68,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-28T16:08:51.159Z  
+**Submitted:** 2026-10-28T16:12:41.678Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -93,19 +93,34 @@ int main() {
                 ans++;
             }
         }
-        int extra = 0;
-        
-        for(int i = 0; i < n; i++) {
-            int gain = 0;
-            if(i > 0 && a[i - 1] == a[i] + 1 ) {
-                gain++;
+        vector<int> left(n, 0), right(n, 0);
+
+        for(int i = 1; i < n; i++){
+            if (a[i - 1] == a[i] + 1){
+                left[i] = 1;
             }
-            if(i < n - 1 && a[i + 1] == a[i] + 1){
-                gain++;
+            if (a[i - 1] == a[i]) {
+                left[i]--;
             }
-            extra = max(extra, gain);
         }
-        cout << ans + extra << endl;
+
+        for(int i = 0; i < n - 1; i++){
+            if (a[i] + 1 == a[i + 1]) {
+                right[i] = 1;
+            }
+            if (a[i] == a[i + 1]) {
+                right[i]--;
+            }
+        }
+        int best = 0;
+        int maxLeft = left[0];
+
+        for(int r = 0; r < n; r++) {
+            maxLeft = max(maxLeft, left[r]);
+            best = max(best, maxLeft + right[r]);
+        }
+
+        cout << ans + best << endl;
     }
 }
 ```
