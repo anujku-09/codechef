@@ -70,7 +70,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-28T15:53:58.795Z  
+**Submitted:** 2026-10-28T15:54:37.798Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -85,7 +85,7 @@ int main() {
 	    string s;
 	    cin >> s;
 	    int ans = 0;
-	    int last = -1;
+	    int last = -k-1;
 	    
 	    for(int i = 0; i < n; i++) {
 	        if(s[i] == '1') {
