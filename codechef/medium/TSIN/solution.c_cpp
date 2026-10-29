@@ -1,0 +1,108 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MOD = 1e9 + 7;
+
+int n, a_node, b_node, q;
+vector<vector<int>> adj;
+vector<int> tin, tout, sz, parent_A;
+vector<int> child_towards_B;
+vector<bool> on_path_to_B;
+int timer_dfs = 0;
+
+void dfs(int u, int p) {
+    tin[u] = ++timer_dfs;
+    sz[u] = 1;
+    parent_A[u] = p;
+    for (int v : adj[u]) {
+        if (v != p) {
+            dfs(v, u);
+            sz[u] += sz[v];
+        }
+    }
+    tout[u] = ++timer_dfs;
+}
+
+// Returns true if u is an ancestor of v (or u == v)
+bool is_ancestor(int u, int v) {
+    return tin[u] <= tin[v] && tout[v] <= tout[u];
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    if (!(cin >> n)) return 0;
+    cin >> a_node >> b_node;
+
+    adj.assign(n + 1, vector<int>());
+    for (int i = 1; i <= n; ++i) {
+        int p;
+        cin >> p;
+        if (p != 0) {
+            adj[i].push_back(p);
+            adj[p].push_back(i);
+        }
+    }
+
+    tin.resize(n + 1);
+    tout.resize(n + 1);
+    sz.resize(n + 1);
+    parent_A.resize(n + 1);
+    child_towards_B.assign(n + 1, 0);
+    on_path_to_B.assign(n + 1, false);
+
+    // Root the tree at A
+    dfs(a_node, 0);
+
+    // Identify all ancestors of B on the path from B to A
+    int curr = b_node;
+    while (curr != a_node) {
+        int p = parent_A[curr];
+        child_towards_B[p] = curr;
+        on_path_to_B[p] = true;
+        curr = p;
+    }
+
+    cin >> q;
+    long long total_sum = 0;
+    long long last_ans = 0;
+
+    for (int i = 0; i < q; ++i) {
+        long long q1, q2;
+        cin >> q1 >> q2;
+
+        int u = (q1 + last_ans - 1) % n + 1;
+        int v = (q2 + last_ans - 1) % n + 1;
+
+        int ans = 0;
+
+        if (v == b_node) {
+            ans = sz[u];
+        } else if (on_path_to_B[v]) {
+            int c = child_towards_B[v];
+            if (is_ancestor(c, u)) {
+                ans = 0;
+            } else if (is_ancestor(u, c)) {
+                ans = sz[u] - sz[c];
+            } else {
+                ans = sz[u];
+            }
+        } else {
+            if (is_ancestor(u, v)) {
+                ans = sz[v];
+            } else if (is_ancestor(v, u)) {
+                ans = sz[u];
+            } else {
+                ans = 0;
+            }
+        }
+
+        last_ans = ans;
+        total_sum = (total_sum + ans) % MOD;
+    }
+
+    cout << total_sum << "\n";
+
+    return 0;
+}
