@@ -71,7 +71,7 @@ Therefore, the required sum is $1 + 2 + 2 = 5$.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-29T10:11:12.599Z  
+**Submitted:** 2026-10-29T10:12:13.575Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
