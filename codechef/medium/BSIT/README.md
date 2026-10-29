@@ -71,100 +71,58 @@ Therefore, the required sum is $1 + 2 + 2 = 5$.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-29T10:13:19.464Z  
+**Submitted:** 2026-10-29T10:11:48.595Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
 const long long MOD = 1000000007LL;
-
 struct SegmentTree {
-    int n;
-    vector<int> mx, lazy;
+    int size;
+    vector<int> tree;
 
-    SegmentTree(const vector<int>& a) {
-        n = (int)a.size();
-        mx.assign(4 * n, 0);
-        lazy.assign(4 * n, 0);
-        build(1, 0, n, a);
+    SegmentTree(int n) {
+        size = 1;
+        while (size < n) size <<= 1;
+        tree.assign(2 * size, -1);
     }
 
-    void build(int p, int l, int r, const vector<int>& a) {
-        if (r - l == 1) {
-            mx[p] = a[l];
-            return;
-        }
+    void update(int pos, int value) {
+        pos += size;
+        tree[pos] = value;
 
-        int m = (l + r) / 2;
-        build(p * 2, l, m, a);
-        build(p * 2 + 1, m, r, a);
-        pull(p);
-    }
-
-    void pull(int p) {
-        mx[p] = max(mx[p * 2], mx[p * 2 + 1]);
-    }
-
-    void apply(int p, int value) {
-        mx[p] += value;
-        lazy[p] += value;
-    }
-
-    void push(int p) {
-        if (lazy[p] != 0) {
-            apply(p * 2, lazy[p]);
-            apply(p * 2 + 1, lazy[p]);
-            lazy[p] = 0;
+        for (pos >>= 1; pos > 0; pos >>= 1) {
+            tree[pos] = max(tree[pos << 1],
+                            tree[pos << 1 | 1]);
         }
     }
 
-    void add(int p, int l, int r,
-             int ql, int qr, int value) {
-        if (qr <= l || r <= ql) return;
+    int query(int left, int right) {
+        int result = -1;
+        left += size;
+        right += size;
 
-        if (ql <= l && r <= qr) {
-            apply(p, value);
-            return;
+        while (left < right) {
+            if (left & 1)
+                result = max(result, tree[left++]);
+
+            if (right & 1)
+                result = max(result, tree[--right]);
+
+            left >>= 1;
+            right >>= 1;
         }
 
-        push(p);
-        int m = (l + r) / 2;
-
-        add(p * 2, l, m, ql, qr, value);
-        add(p * 2 + 1, m, r, ql, qr, value);
-
-        pull(p);
-    }
-
-    void add(int l, int r, int value) {
-        if (l < r) add(1, 0, n, l, r, value);
-    }
-
-    int query(int p, int l, int r,
-              int ql, int qr) {
-        if (qr <= l || r <= ql) return INT_MIN;
-
-        if (ql <= l && r <= qr) return mx[p];
-
-        push(p);
-        int m = (l + r) / 2;
-
-        return max(
-            query(p * 2, l, m, ql, qr),
-            query(p * 2 + 1, m, r, ql, qr)
-        );
-    }
-
-    int query(int l, int r) {
-        return query(1, 0, n, l, r);
+        return result;
     }
 };
 
 struct Frame {
     int u;
-    int nextChild;
+    int childIndex;
     int oldLast;
+    int oldLeft;
 };
 
 int main() {
@@ -174,141 +132,155 @@ int main() {
     int n;
     cin >> n;
 
-    vector<int> parent(n + 1);
     vector<vector<int>> child(n + 1);
+    vector<int> parent(n + 1);
 
-    for (int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; i++) {
         cin >> parent[i];
-        if (parent[i] != 0)
+
+        if (parent[i] != 0) {
             child[parent[i]].push_back(i);
+        }
     }
 
     vector<int> color(n + 1);
 
-    for (int i = 1; i <= n; ++i)
+    for (int i = 1; i <= n; i++) {
         cin >> color[i];
+    }
 
     int q;
     cin >> q;
 
     vector<int> queries(q);
 
-    for (int i = 0; i < q; ++i)
+    for (int i = 0; i < q; i++) {
         cin >> queries[i];
+    }
 
-    vector<int> vals(color.begin() + 1, color.end());
-    sort(vals.begin(), vals.end());
-    vals.erase(unique(vals.begin(), vals.end()), vals.end());
+    // Coordinate-compress colors.
+    vector<int> values(color.begin() + 1, color.end());
+    sort(values.begin(), values.end());
 
-    for (int i = 1; i <= n; ++i) {
+    values.erase(
+        unique(values.begin(), values.end()),
+        values.end()
+    );
+
+    for (int i = 1; i <= n; i++) {
         color[i] = lower_bound(
-            vals.begin(), vals.end(), color[i]
-        ) - vals.begin();
+            values.begin(), values.end(), color[i]
+        ) - values.begin();
     }
 
     vector<int> depth(n + 1, 0);
     vector<int> tin(n + 1), tout(n + 1);
-    vector<int> distinctPrefix(n + 1, 0);
-    vector<int> sameParent(n + 1, 0);
+    vector<int> leftBound(n + 1, 0);
     vector<int> euler(n);
 
     int timer = 0;
-    int maxDepth = 0;
-    unordered_map<int, int> lastNode;
-    lastNode.reserve(2 * n);
-    lastNode.max_load_factor(0.7);
+    int currentLeft = 0;
+
+    unordered_map<int, int> lastSeen;
+    lastSeen.reserve(2 * n);
+    lastSeen.max_load_factor(0.7);
 
     vector<Frame> dfs;
     dfs.reserve(n);
 
     tin[1] = timer;
     euler[timer++] = 1;
-    distinctPrefix[1] = 1;
-    lastNode[color[1]] = 1;
+    lastSeen[color[1]] = 0;
+    leftBound[1] = 0;
 
-    dfs.push_back({1, 0, 0});
-
+    dfs.push_back({1, 0, -1, 0});
     while (!dfs.empty()) {
         Frame &f = dfs.back();
         int u = f.u;
 
-        if (f.nextChild < (int)child[u].size()) {
-            int v = child[u][f.nextChild++];
+        if (f.childIndex < (int)child[u].size()) {
+            int v = child[u][f.childIndex++];
 
             depth[v] = depth[u] + 1;
-            maxDepth = max(maxDepth, depth[v]);
 
-            int oldLast = 0;
-            auto it = lastNode.find(color[v]);
+            int oldLeft = currentLeft;
+            int oldLast = -1;
 
-            if (it != lastNode.end())
+            auto it = lastSeen.find(color[v]);
+
+            if (it != lastSeen.end()) {
                 oldLast = it->second;
+                currentLeft = max(currentLeft, oldLast + 1);
+            }
 
-            sameParent[v] = oldLast;
-            distinctPrefix[v] =
-                distinctPrefix[u] + (oldLast == 0);
-
-            lastNode[color[v]] = v;
+            leftBound[v] = currentLeft;
 
             tin[v] = timer;
             euler[timer++] = v;
 
-            dfs.push_back({v, 0, oldLast});
+            lastSeen[color[v]] = depth[v];
+
+            dfs.push_back({
+                v, 0, oldLast, oldLeft
+            });
         } else {
             tout[u] = timer;
 
             int oldLast = f.oldLast;
+            int oldLeft = f.oldLeft;
 
-            if (oldLast == 0)
-                lastNode.erase(color[u]);
-            else
-                lastNode[color[u]] = oldLast;
+            if (oldLast == -1) {
+                lastSeen.erase(color[u]);
+            } else {
+                lastSeen[color[u]] = oldLast;
+            }
 
+            currentLeft = oldLeft;
             dfs.pop_back();
         }
     }
-    vector<vector<int>> sameColorChildren(n + 1);
 
-    for (int u = 2; u <= n; ++u) {
-        if (sameParent[u] != 0)
-            sameColorChildren[sameParent[u]].push_back(u);
-    }
+    vector<int> nodes(n);
+    iota(nodes.begin(), nodes.end(), 1);
 
-    vector<int> initial(n);
+    sort(nodes.begin(), nodes.end(), [&](int a, int b) {
+        return leftBound[a] < leftBound[b];
+    });
 
-    for (int i = 0; i < n; ++i)
-        initial[i] = distinctPrefix[euler[i]];
+    vector<int> queryOrder(n);
+    iota(queryOrder.begin(), queryOrder.end(), 1);
 
-    SegmentTree seg(initial);
+    sort(queryOrder.begin(), queryOrder.end(),
+         [&](int a, int b) {
+             return depth[a] < depth[b];
+         });
 
-    vector<vector<int>> nodesAtDepth(maxDepth + 1);
+    SegmentTree seg(n);
 
-    for (int u = 1; u <= n; ++u)
-        nodesAtDepth[depth[u]].push_back(u);
+    vector<int> best(n + 1, 1);
+    int ptr = 0;
 
-    vector<int> answer(n + 1, 0);
-    for (int d = 0; d <= maxDepth; ++d) {
-        for (int u : nodesAtDepth[d]) {
-            answer[u] = seg.query(tin[u], tout[u]);
+    for (int x : queryOrder) {
+        // Activate nodes whose root-path suffix starts
+        // no later than depth[x].
+        while (ptr < n &&
+               leftBound[nodes[ptr]] <= depth[x]) {
+            int v = nodes[ptr++];
+            seg.update(tin[v], depth[v]);
         }
 
+        // Find the deepest valid descendant of x.
+        int maxDepth = seg.query(tin[x], tout[x]);
 
-        for (int u : nodesAtDepth[d]) {
-            seg.add(tin[u], tout[u], -1);
-
-            for (int v : sameColorChildren[u])
-                seg.add(tin[v], tout[v], 1);
-        }
+        best[x] = maxDepth - depth[x] + 1;
     }
 
     long long result = 0;
 
     for (int x : queries) {
-        result = (result + answer[x]) % MOD;
+        result = (result + best[x]) % MOD;
     }
-
     cout << result << '\n';
-
     return 0;
 }
 
