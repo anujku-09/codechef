@@ -1,37 +1,56 @@
-/*
-struct Node {
-    int val; 
-    Node *left;
-    Node *right;
+#include <bits/stdc++.h>
+using namespace std;
 
-    Node(int node_value) {
-        val = node_value;
-        left = right = NULL;
+vector<vector<int>> adj;
+vector<int> subtree;
+vector<long long> ans;
+int n;
+
+void dfs1(int u, int parent, int depth) {
+    subtree[u] = 1;
+    ans[1] += depth;
+
+    for (int v : adj[u]) {
+        if (v == parent)
+            continue;
+
+        dfs1(v, u, depth + 1);
+        subtree[u] += subtree[v];
     }
-}; */
+}
 
-class Solution {
-  public:
-    int idx = 0;
+void dfs2(int u, int parent) {
+    for (int v : adj[u]) {
+        if (v == parent)
+            continue;
 
-    Node* build(vector<int>& preorder, vector<int>& inorder, int start, int end) {
-        if (start > end)
-            return NULL;
-
-        Node* root = new Node(preorder[idx]);
-        idx++;
-
-        int pos = start;
-        while (inorder[pos] != root->val)
-            pos++;
-
-        root->left = build(preorder, inorder, start, pos - 1);
-        root->right = build(preorder, inorder, pos + 1, end);
-
-        return root;
+        ans[v] = ans[u] - subtree[v] + (n - subtree[v]);
+        dfs2(v, u);
     }
-    Node* constructBinaryTree(vector<int> &preorder, vector<int> inorder) {
-        idx = 0;
-        return build(preorder, inorder, 0, inorder.size() - 1);
+}
+
+int main() {
+    cin >> n;
+
+    adj.resize(n + 1);
+    subtree.resize(n + 1);
+    ans.resize(n + 1, 0);
+
+    for (int i = 0; i < n - 1; i++) {
+        int u, v;
+        cin >> u >> v;
+
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
-};
+
+    dfs1(1, 0, 0);
+    dfs2(1, 0);
+
+    for (int i = 1; i <= n; i++) {
+        cout << ans[i] << '\n';
+    }
+
+    return 0;
+}
+
