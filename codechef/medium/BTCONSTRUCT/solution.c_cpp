@@ -12,20 +12,26 @@ struct Node {
 
 class Solution {
   public:
-    Node* createBST(vector<int> &nums) {
-        if (nums.empty())
+    int idx = 0;
+
+    Node* build(vector<int>& preorder, vector<int>& inorder, int start, int end) {
+        if (start > end)
             return NULL;
 
-        int mid = nums.size() / 2;
+        Node* root = new Node(preorder[idx]);
+        idx++;
 
-        Node* root = new Node(nums[mid]);
+        int pos = start;
+        while (inorder[pos] != root->val)
+            pos++;
 
-        vector<int> left(nums.begin(), nums.begin() + mid);
-        vector<int> right(nums.begin() + mid + 1, nums.end());
-
-        root->left = createBST(left);
-        root->right = createBST(right);
+        root->left = build(preorder, inorder, start, pos - 1);
+        root->right = build(preorder, inorder, pos + 1, end);
 
         return root;
+    }
+    Node* constructBinaryTree(vector<int> &preorder, vector<int> inorder) {
+        idx = 0;
+        return build(preorder, inorder, 0, inorder.size() - 1);
     }
 };
