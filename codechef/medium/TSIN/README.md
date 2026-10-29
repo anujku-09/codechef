@@ -103,7 +103,7 @@ Therefore, the sum of the answers is $2$.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-29T05:29:21.854Z  
+**Submitted:** 2026-10-29T05:29:35.843Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
