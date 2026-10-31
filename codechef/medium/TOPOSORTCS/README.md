@@ -4,94 +4,108 @@
 
 ## Problem
 
-### Roads Construction in Chefs Country
+### Find Course Schedule
 
-Chef's country has `N` cities, and `M` roads between them. The goal is to construct new roads so that there is a route between any two cities.
-
-Find out the minimum number of roads required.
+You have to complete N courses. There are M requirements of the form "course a has to be completed before course b". Find an order in which you can complete the courses.
 
 ### Input Format
-- The first line consists of two space separated integers, N and M, representing the number of cities and number of roads between them.
-- Cities are numbered from 1 to N.
-- The subsequent M lines describe the roads, each containing two integers, u and v, describing a road between city u and city v.
-- Each road links two distinct cities, and at most one road exists between any two cities.
+- The first line consists of two space separated integers, N and M, representing the number of courses and number of requirements.
+- Courses are numbered from 1 to N.
+- The subsequent M lines describe the requirements, each containing two integers, a and b, describing the requirements of the form course a has to be completed before course b.
 ### Output Format
-- Output the number of minimum roads required to connect all the cities.
+- Output N space separated integers, describing the order of N courses which should be taken in order to complete all of them.
+- If it's not possible to complete all the courses, output -1.
 ### Constraints
-- $1 \leq N \leq 200000$
-- $1 \leq M \leq N(N-1)/2$
+- $1 \leq N \leq 10^5$
+- $0 \leq M \leq 2 \times 10^5$
 - $1 \leq u_i, v_i \leq N$
-- $u_i \neq v_i$ for each $1 \leq i \leq M$.
+- $u_i \neq v_i$
 ### Sample 1:
 Input
 Output
 
 ```
-5 6
+6 6
 1 2
-2 3
 1 3
-3 5
 2 4
-4 5
+3 5
+5 6
+6 3
 ```
 
 ```
-0
+-1
 ```
 
 ### Explanation:
 
-There already exists paths between any two pair of cities and hence no new road needs to be constructed.
+Courses 3, 5, and 6 are dependent on each other; hence, it is not possible to complete all the courses.
 
 ## Solution
 
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-31T10:31:47.732Z  
+**Submitted:** 2026-10-31T10:38:59.312Z  
 
 ```c_cpp
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <queue>
+
 using namespace std;
 
-vector<int> adj[200005];
-bool visited[200005];
-
-void dfs(int node) {
-    visited[node] = true;
-
-    for (int v : adj[node]) {
-        if (!visited[v]) {
-            dfs(v);
-        }
-    }
-}
-
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int n, m;
-    cin >> n >> m;
+    if (!(cin >> n >> m)) return 0;
+
+    vector<vector<int>> adj(n + 1);
+    vector<int> indegree(n + 1, 0);
 
     for (int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
-
         adj[u].push_back(v);
-        adj[v].push_back(u);
+        indegree[v]++;
     }
-    int count = 0;
+
+    queue<int> q;
 
     for (int i = 1; i <= n; i++) {
-        if (!visited[i]) {
-            dfs(i);
-            count++;
+        if (indegree[i] == 0) {
+            q.push(i);
         }
     }
-    cout << count - 1 << endl;
+
+    vector<int> ans;
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        ans.push_back(u);
+
+        for (int v : adj[u]) {
+            indegree[v]--;
+            if (indegree[v] == 0) {
+                q.push(v);
+            }
+        }
+    }
+
+    if (ans.size() != n) {
+        cout << -1 << "\n";
+    } else {
+        for (int i = 0; i < n; i++) {
+            cout << ans[i] << (i + 1 == n ? "" : " ");
+        }
+        cout << "\n";
+    }
 
     return 0;
 }
-
 ```
 
 ---
