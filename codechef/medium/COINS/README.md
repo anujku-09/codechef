@@ -52,32 +52,31 @@ It is better just to change the $2$ coin directly into $2$.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-19T13:13:20.973Z  
+**Submitted:** 2026-10-31T17:29:14.211Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
-unordered_map<long long, long long> memo;
+unordered_map<long long, long long> dp;
 
-long long solve(long long n){
-    if(n < 12) {
+long long solve(long long n) {
+    if (n < 12) {
         return n;
     }
-    if(memo.count(n)) {
-        return memo[n];
+    if (dp.count(n)) {
+        return dp[n];
     }
-    long long exch = solve(n / 2) + solve(n/ 3) +solve(n / 4);
-    
-    return memo[n] = max(n, exch);
+    long long exchange = solve(n / 2) + solve(n / 3) + solve(n / 4);
+    return dp[n] = max(n, exchange);
 }
 
 int main() {
-	long long n;
-	while(cin >> n) {
-	    cout << solve(n) << "\n";
-	}
-	return 0;
+    long long n;
+    while (cin >> n) {
+        cout << solve(n) << endl;
+    }
+    return 0;
 }
 
 ```
