@@ -61,7 +61,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-04T13:17:40.306Z  
+**Submitted:** 2026-10-31T14:44:51.085Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -81,7 +81,7 @@ void solve(){
         }
     }
     cout << res.size() << "\n";
-    for(int i = 0; i < (int)res.size(); i++){
+    for(int i = 0; i < res.size(); i++){
         cout << res[i] << " ";
     }
     cout << "\n";
