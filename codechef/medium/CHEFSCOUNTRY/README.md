@@ -1,0 +1,57 @@
+# CHEFSCOUNTRY
+
+![Difficulty](https://img.shields.io/badge/Difficulty-Medium-yellow)
+
+## Problem
+
+_Description not available._
+
+## Solution
+
+**Language:** c_cpp  
+**Runtime:** N/A  
+**Memory:** N/A  
+**Submitted:** 2026-10-31T10:28:40.965Z  
+
+```c_cpp
+class Solution {
+public:
+    int getMinimumDistance(int n, vector<pair<int, int>> edges, int x, int y) {
+        vector<vector<int>> adj(n + 1);
+
+        for (const auto& e : edges) {
+            int u = e.first;
+            int v = e.second;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+
+        vector<int> dist(n + 1, -1);
+        queue<int> q;
+
+        q.push(x);
+        dist[x] = 0;
+
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+
+            if (u == y) {
+                return dist[y];
+            }
+
+            for (int v : adj[u]) {
+                if (dist[v] == -1) {
+                    dist[v] = dist[u] + 1;
+                    q.push(v);
+                }
+            }
+        }
+        return dist[y];
+    }
+};
+```
+
+---
+
+[View on CodeChef](https://www.codechef.com/problems/CHEFSCOUNTRY)
