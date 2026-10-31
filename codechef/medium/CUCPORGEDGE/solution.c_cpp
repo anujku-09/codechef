@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<pair<int, int>> edges(n);
+
+    for (int i = 0; i < n; i++) {
+        cin >> edges[i].first >> edges[i].second;
+    }
+
+    for (int remove = n - 1; remove >= 0; remove--) {
+        vector<int> adj[1005];
+        int indegree[1005] = {0};
+
+        for (int i = 0; i < n; i++) {
+            if (i == remove)
+                continue;
+
+            int u = edges[i].first;
+            int v = edges[i].second;
+
+            adj[u].push_back(v);
+            indegree[v]++;
+        }
+
+        int root = -1;
+        int count = 0;
+        bool valid = true;
+
+        for (int i = 1; i <= n; i++) {
+            if (indegree[i] == 0) {
+                root = i;
+                count++;
+            }
+            else if (indegree[i] != 1) {
+                valid = false;
+            }
+        }
+
+        if (!valid || count != 1)
+            continue;
+
+        bool visited[1005] = {false};
+        queue<int> q;
+
+        q.push(root);
+        visited[root] = true;
+
+        int total = 1;
+
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+
+            for (int v : adj[u]) {
+                if (!visited[v]) {
+                    visited[v] = true;
+                    total++;
+                    q.push(v);
+                }
+            }
+        }
+
+        if (total == n) {
+            cout << edges[remove].first << " "
+                 << edges[remove].second << endl;
+            return 0;
+        }
+    }
+
+    return 0;
+}
