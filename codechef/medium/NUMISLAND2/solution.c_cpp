@@ -1,0 +1,81 @@
+class Solution {
+    vector<int> parent, sz;
+
+    int findParent(int node) {
+        if (parent[node] == node) {
+            return node;
+        }
+
+        return parent[node] = findParent(parent[node]);
+    }
+
+    bool unite(int u, int v) {
+        u = findParent(u);
+        v = findParent(v);
+
+        if (u == v) {
+            return false;
+        }
+
+        if (sz[u] < sz[v]) {
+            swap(u, v);
+        }
+
+        parent[v] = u;
+        sz[u] += sz[v];
+
+        return true;
+    }
+
+public:
+    vector<int> numOfIslands(int n, int m, vector<vector<int>>& operators) {
+        int total = n * m;
+
+        parent.resize(total);
+        sz.assign(total, 1);
+
+        for (int i = 0; i < total; i++) {
+            parent[i] = i;
+        }
+
+        vector<bool> land(total, false);
+        vector<int> ans;
+
+        int islands = 0;
+
+        int dr[] = {-1, 1, 0, 0};
+        int dc[] = {0, 0, -1, 1};
+
+        for (auto &op : operators) {
+            int r = op[0];
+            int c = op[1];
+
+            int node = r * m + c;
+
+            if (land[node]) {
+                ans.push_back(islands);
+                continue;
+            }
+
+            land[node] = true;
+            islands++;
+
+            for (int i = 0; i < 4; i++) {
+                int nr = r + dr[i];
+                int nc = c + dc[i];
+
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m) {
+                    int adjNode = nr * m + nc;
+
+                    if (land[adjNode]) {
+                        if (unite(node, adjNode)) {
+                            islands--;
+                        }
+                    }
+                }
+            }
+            ans.push_back(islands);
+        }
+        return ans;
+    }
+};
