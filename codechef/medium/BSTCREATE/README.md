@@ -40,7 +40,7 @@ Successfully created BST!
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-29T10:17:46.607Z  
+**Submitted:** 2026-11-01T16:25:58.405Z  
 
 ```c_cpp
 /*
@@ -56,22 +56,23 @@ struct Node {
 }; */
 
 class Solution {
-  public:
-    Node* createBST(vector<int> &nums) {
-        if (nums.empty())
+  Node* buildBST(const vector<int>& nums, int l, int r) {
+        if (l > r) {
             return NULL;
+        }
 
-        int mid = nums.size() / 2;
-
+        int mid = l + (r - l) / 2;
         Node* root = new Node(nums[mid]);
 
-        vector<int> left(nums.begin(), nums.begin() + mid);
-        vector<int> right(nums.begin() + mid + 1, nums.end());
-
-        root->left = createBST(left);
-        root->right = createBST(right);
+        root->left = buildBST(nums, l, mid - 1);
+        root->right = buildBST(nums, mid + 1, r);
 
         return root;
+    }
+    
+  public:
+    Node* createBST(vector<int> &nums) {
+        return buildBST(nums, 0, nums.size() - 1);
     }
 };
 ```
