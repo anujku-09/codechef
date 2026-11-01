@@ -87,32 +87,51 @@ Endpoint	Scenario	Status Code	Response
 **Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-29T18:52:57.489Z  
+**Submitted:** 2026-11-01T21:12:01.561Z  
 
 ```cpp
-    if (product != null) {
+    }
+        return ResponseEntity.ok("Product deleted successfully");
+
+        products.remove(product);
+
+        }
+                    .body("Product not found");
+            return ResponseEntity.status(404)
+        if (product == null) {
+
+        Product product = findById(id);
+
+            @PathVariable int id) {
+    public ResponseEntity<String> deleteProduct(
+    // 5. DELETE - Delete a product
+    @DeleteMapping("/{id}")
+        if (product == null) {
+            return ResponseEntity.status(404)
+                    .body("Product not found");
+        }
+
+        product.setName(updatedProduct.getName());
+        product.setPrice(updatedProduct.getPrice());
+
         return ResponseEntity.ok(product);
     }
-    return ResponseEntity.status(404).body("Product not found");
+
+
+
+        Product product = findById(id);
+            @RequestBody Product updatedProduct) {
+            @PathVariable int id,
+    public ResponseEntity<?> updateProduct(
+    @PutMapping("/{id}")
+    // 4. PUT - Update an existing product
+
     }
+        return ResponseEntity.status(201).body(product);
 
-    // TODO: POST /api/products -> 201 with created product
-    @PostMapping
-    public ResponseEntity<Product> createProduct( @RequestBody Product product) {
-    product.setId(getNextId());
-    products.add(product);
+        products.add(product);
 
-    return ResponseEntity.status(201).body(product);
-    }
-
-    // TODO: PUT /api/products/{id} -> 200 with updated product, 404 "Product not found"
-@PutMapping("/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable int id, @RequestBody Product updatedProduct) {
-    Product product = findById(id);
-
-    if (product == null) {
-        return ResponseEntity.status(404).body("Product not found");
-    }
+        product.setId(getNextId());
 ```
 
 ---
