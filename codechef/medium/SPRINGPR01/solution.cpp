@@ -1,42 +1,22 @@
-    }
-        return ResponseEntity.ok("Product deleted successfully");
 
-        products.remove(product);
+public class ProductController {
+@RequestMapping("/api/products")
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-        }
-                    .body("Product not found");
-            return ResponseEntity.status(404)
-        if (product == null) {
+import java.util.ArrayList;
+import java.util.List;
 
-        Product product = findById(id);
+// TODO: mark this class as a REST controller
+@RestController
+import org.springframework.http.ResponseEntity;
+    private final List<Product> products = new ArrayList<>();
 
-            @PathVariable int id) {
-    public ResponseEntity<String> deleteProduct(
-    // 5. DELETE - Delete a product
-    @DeleteMapping("/{id}")
-        if (product == null) {
-            return ResponseEntity.status(404)
-                    .body("Product not found");
-        }
-
-        product.setName(updatedProduct.getName());
-        product.setPrice(updatedProduct.getPrice());
-
-        return ResponseEntity.ok(product);
-    }
-
-
-
-        Product product = findById(id);
-            @RequestBody Product updatedProduct) {
-            @PathVariable int id,
-    public ResponseEntity<?> updateProduct(
-    @PutMapping("/{id}")
-    // 4. PUT - Update an existing product
-
-    }
-        return ResponseEntity.status(201).body(product);
-
-        products.add(product);
-
-        product.setId(getNextId());
+    public ProductController() {
+        products.add(new Product(1, "Laptop", 55000.0));
