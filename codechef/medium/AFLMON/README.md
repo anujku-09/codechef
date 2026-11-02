@@ -53,7 +53,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-02T15:05:16.948Z  
+**Submitted:** 2026-11-02T15:07:39.658Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -73,7 +73,10 @@ int main() {
 	  int cnt = 0;
 	  
 	  for(int i = 0; i < n; i++) {
-	    if(i + 1 > n - i - 1) cnt++;
+	    int j = i;
+	    while(j + 1 < n && a[ j + 1] == a[i]) j++;
+	    if(j + 1 > n - j - 1) cnt += j - i + 1;
+	    i = j;
 	  }
 	  cout << cnt << endl;
 	}
