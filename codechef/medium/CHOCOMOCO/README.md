@@ -55,7 +55,7 @@ YES
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-02T14:53:02.616Z  
+**Submitted:** 2026-11-02T14:51:58.276Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -67,11 +67,7 @@ int main() {
 	while(t--) {
 	  int n; 
 	  cin >> n;
-	  if(n % 4 == 0) {
-	    cout << "NO" << endl; 
-	  } else {
-	    cout << "YES" << endl;
-	  }
+	  if(n )
 	}
 }
 
