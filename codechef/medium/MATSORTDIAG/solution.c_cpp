@@ -2,6 +2,59 @@
 using namespace std;
 
 int main() {
-	// your code goes here
-
+	int n, m;
+	cin >> n >> m;
+	int a[100][100];
+	for(int i = 0; i < n; i++) {
+	  for(int j = 0; j < m; j++) {
+	    cin >> a[i][j];
+	  }
+	}
+	for(int j = 0; j < m; j++) {
+	  vector<int> v;
+	  int x = 0, y = j;
+	  
+	  while(x < n &&  y < m) {
+	    v.push_back(a[x][y]);
+	    x++;
+	    y++;
+	  }
+	  sort(v.begin(), v.end());
+	  x = 0, y = j;
+	  int  k =0;
+	  
+	  while(k < n && y < m) {
+	    a[x][y] = v[k];
+	    k++;
+	    x++;
+	    y++;
+	  }
+	}
+	
+	for(int i = 1;i < n; i++) {
+	  vector<int> v;
+	  int x = i, y = 0;
+	  
+	  while(x < n && y < m) {
+	    v.push_back(a[x][y]);
+	    x++;
+	    y++;
+	  }
+	  sort(v.begin(), v.end());
+	  x = i, y = 0;
+	  int k = 0;
+	  
+	  while(x < n && y < m) {
+	    a[x][y] = v[k];
+	    k++;
+	    x++;
+	    y++;
+	  }
+	}
+	for(int i = 0; i< n; i++) {
+	  for(int j = 0;j < m; j++) {
+	    cout << a[i][j] << " ";
+	  }
+	  cout << endl;
+	}
 }
