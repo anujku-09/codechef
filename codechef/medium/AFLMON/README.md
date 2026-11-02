@@ -53,15 +53,30 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-02T15:00:54.938Z  
+**Submitted:** 2026-11-02T15:05:16.948Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	// your code goes here
-
+	int t;
+	cin >> t;
+	while(t--) {
+	  int n;
+	  cin >> n;
+	  int a[100];
+	  for(int i = 0; i < n; i++) {
+	    cin >> a[i];
+	  }
+	  sort(a, a + n);
+	  int cnt = 0;
+	  
+	  for(int i = 0; i < n; i++) {
+	    if(i + 1 > n - i - 1) cnt++;
+	  }
+	  cout << cnt << endl;
+	}
 }
 
 ```
