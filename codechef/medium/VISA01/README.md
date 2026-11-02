@@ -49,15 +49,35 @@ aa aa
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-02T14:54:04.999Z  
+**Submitted:** 2026-11-02T14:58:34.535Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	// your code goes here
-
+	int t;
+	cin >> t;
+	
+	while(t--) {
+	  string s, r;
+	  cin >> s >> r;
+	  int n = s.length();
+	  int m = r.length();
+	  
+	  int dp[105][105] = {0};
+	  
+	  for(int i = 1; i <= n; i++) {
+	    for(int j = 1; j <= m; j++) {
+	      if(s[i - 1] == r[j - 1]) {
+	        dp[i][j] = 1 + dp[i - 1][j - 1];
+	      } else {
+	        dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+	      }
+	    }
+	  }
+	  cout << dp[n][m] << endl;
+	}
 }
 
 ```
