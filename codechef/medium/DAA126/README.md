@@ -56,15 +56,39 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-02T15:09:10.902Z  
+**Submitted:** 2026-11-02T15:16:56.232Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	// your code goes here
-
+	int n, m;
+	cin >> n >> m;
+	int u[5005], v[5005];
+	long long w[5005];
+	
+	for(int i = 0; i < m; i++) {
+	  cin >> u[i] >> v[i] >> w[i];
+	}
+  
+  long long dist[5005];
+  for(int i = 1; i <= n; i++) {
+    dist[i] = 1e18;
+  }
+  dist[1] = 0;
+  
+  for(int i = 1; i < n; i++) {
+    for(int j = 0; j < m; j++) {
+      if(dist[u[j]] != 1e18 && dist[u[j]] + w[j] < dist[v[j]]) {
+        dist[v[j]] = dist[u[j]] + w[j];
+      }
+    }
+  }
+  for(int i = 1; i <= n; i++) {
+    cout << dist[i] << " ";
+  }
+  cout << endl;
 }
 
 ```
