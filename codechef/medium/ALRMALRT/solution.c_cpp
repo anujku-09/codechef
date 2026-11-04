@@ -2,6 +2,24 @@
 using namespace std;
 
 int main() {
-	// your code goes here
-
+	int t;
+	cin >> t;
+	while(t--) {
+	  long long x, y, d;
+	  cin >> x >> y >> d;
+	  long long ans = LLONG_MAX;
+	  long long limit = y / gcd(x, y);
+	  for(long long i = 1; i <= limit; i++) {
+	    long long a = i * x;
+	    long long b = (a / y) * y;
+	    if(b > 0 && abs(a - b) <= d) {
+	      ans = min(ans, max(a, b));
+	    }
+	    b = (a / y + 1) * y;
+	    if(abs(a - b) <= d) {
+	      ans = min(ans, max(a, b));
+	    }
+	  }
+	  cout << ans << endl;
+	}
 }
