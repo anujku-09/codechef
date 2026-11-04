@@ -64,15 +64,82 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-04T16:22:18.756Z  
+**Submitted:** 2026-11-04T16:30:03.781Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	// your code goes here
+	int t;
+	cin >> t;
+	while(t--) {
+	  int n; cin >> n;
+	  vector<int> a(n);
+	  int mx = 0;
+	  for(int i = 0; i < n; i++) {
+	    cin >> a[i];
+	    mx = max(mx, a[i]);
+	  }
+	  vector<vector<int>> dist (n, vector<int(2, -1));
+	  queue<pair<int, int>> q;
+	  for(int i = 0; i< n; i++) {
+	    if(a[i] == mx) {
+	      dist[i][0] = 0;
+	      q.push({i, 0});
+	    }
+	  }
+	  while (!q.empty()) {
+            int pos = q.front().first;
+            int p = q.front().second;
+            q.pop();
 
+            int l = (pos - 1 + n) % n;
+            int r = (pos + 1) % n;
+
+            if (dist[l][1 - p] == -1) {
+                dist[l][1 - p] = dist[pos][p] + 1;
+                q.push({l, 1 - p});
+            }
+
+            if (dist[r][1 - p] == -1) {
+                dist[r][1 - p] = dist[pos][p] + 1;
+                q.push({r, 1 - p});
+            }
+        }
+
+        int even = 0, odd = 0;
+        bool e = true, o = true;
+
+        for (int i = 0; i < n; i++) {
+            if (dist[i][0] == -1) {
+                e = false;
+            } else {
+                even = max(even, dist[i][0]);
+            }
+
+            if (dist[i][1] == -1) {
+                o = false;
+            } else {
+                odd = max(odd, dist[i][1]);
+            }
+        }
+
+        int ans = INT_MAX;
+
+        if (e) ans = min(ans, even);
+        if (o) ans = min(ans, odd);
+
+        if (ans == INT_MAX) {
+            cout << -1 << "\n";
+        } else {
+            cout << ans << "\n";
+        }
+    }
+
+    return 0;
+}
+	}
 }
 
 ```
