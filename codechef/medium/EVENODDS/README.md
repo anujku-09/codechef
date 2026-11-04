@@ -72,14 +72,37 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-04T15:36:20.224Z  
+**Submitted:** 2026-11-04T15:40:46.242Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	// your code goes here
+	int t;
+	cin >> t;
+	while(t--) {
+	  int n;
+	  cin >> n;
+	  vector<int> a(n);
+	  
+	  for(int i = 1; i < n; i++) {
+	    cin >> a[i];
+	  }
+	  int ans  = 0;
+	  for (int i = 0; i < n; i++) {
+	    int odd = 0;
+	    for(int j = i; j < n; j++) {
+	      if(a[j] % 2 != 0) {
+	        odd++;
+	      }
+	      if(odd % 2 == 0) {
+	        ans = max(ans, j - i + 1);
+	      }
+	    }
+	  }
+	  cout << ans << endl;
+	}
 
 }
 
