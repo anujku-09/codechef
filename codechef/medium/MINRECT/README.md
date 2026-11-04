@@ -75,15 +75,39 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-04T15:43:50.409Z  
+**Submitted:** 2026-11-04T15:52:15.331Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	// your code goes here
-
+  int t;
+  cin >> t;
+  while(t--) {
+    int n, m;
+    cin >> n >> m;
+    vector<string> a(n);
+    for(int i = 0; i < n ; i++) {
+      cin >> a[i];
+    }
+    int minRow = n, mxRow = -1;
+    int minCol = m, mxCol = -1;
+    
+    for(int i = 0; i < n; i++) {
+      for(int j = 0; j < m; j++) {
+        if(a[i][j] == '1') {
+          minRow = min(minRow, i);
+          mxRow = max(mxRow, i);
+          minCol = min(minCol, j);
+          mxCol = max(mxCol, j);
+        }
+      }
+    }
+    int hgt = mxRow - minRow + 1;
+    int wdt = mxCol - minCol + 1;
+    cout << hgt * wdt << endl;
+  }
 }
 
 ```
