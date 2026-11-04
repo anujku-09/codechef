@@ -62,15 +62,33 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-04T16:05:28.975Z  
+**Submitted:** 2026-11-04T16:11:23.969Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	// your code goes here
-
+	int t;
+	cin >> t;
+	while(t--) {
+	  int n; 
+	  cin >> n;
+	  string s;
+	  cin >> s;
+	  
+	  int first = -1;
+	  int ans = 0;
+	  for(int i = 0; i < n; i++) {
+	    if(s[i] == '1' && first == -1) {
+	      first = i;
+	    }
+	    if(first != -1 && s[i] == '1') {
+	      ans++;
+	    }
+	  }
+	  cout << ans << endl;
+	}
 }
 
 ```
