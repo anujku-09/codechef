@@ -62,7 +62,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-04T16:20:16.189Z  
+**Submitted:** 2026-11-04T16:16:50.964Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -83,7 +83,7 @@ int main() {
 	    if(s[i] == '0') {
 	      last = i;
 	    }
-	   }
+	  }
 	  for(int i = 0; i < last; i++) {
 	    if(s[i] == '1') {
 	      ans++;
