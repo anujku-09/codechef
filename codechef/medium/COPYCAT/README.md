@@ -62,7 +62,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-04T16:13:38.966Z  
+**Submitted:** 2026-11-04T16:16:32.350Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -77,19 +77,17 @@ int main() {
 	  string s;
 	  cin >> s;
 	  
-	  int first = -1;
-	  int last = 0;
+	  int last = -1;
+	  int ans = 0;
 	  for(int i = 0; i < n; i++) {
-	    if(s[i] == '1' && first == -1) {
-	      first = i;
-	    }
 	    if(s[i] == '0') {
 	      last = i;
 	    }
 	  }
-	  int ans = 0;
-	  if(first != -1 && last > first) {
-	    ans = last - first;
+	  for(int i = 0; i < last; i++) {
+	    if(s[i] == '1') {
+	      ans++;
+	    }
 	  }
 	  cout << ans << endl;
 	}
