@@ -62,7 +62,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-04T16:11:23.969Z  
+**Submitted:** 2026-11-04T16:13:38.966Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -78,14 +78,18 @@ int main() {
 	  cin >> s;
 	  
 	  int first = -1;
-	  int ans = 0;
+	  int last = 0;
 	  for(int i = 0; i < n; i++) {
 	    if(s[i] == '1' && first == -1) {
 	      first = i;
 	    }
-	    if(first != -1 && s[i] == '1') {
-	      ans++;
+	    if(s[i] == '0') {
+	      last = i;
 	    }
+	  }
+	  int ans = 0;
+	  if(first != -1 && last > first) {
+	    ans = last - first;
 	  }
 	  cout << ans << endl;
 	}
