@@ -1,34 +1,21 @@
-      $(".user-details-container")
-        .find("li:contains('Institution')")
-    institution =
-    let organisation = "";
+    const username = String(req.params.username || "").trim();
 
-    let institution = "";
-    // Extract Affiliation (Institution / Organisation)
+    // If username is missing, return 400 error
+    if (!username)  //!username
+      return res.status(400).json({ error: "Username is required" }); //400
 
-    const name = $(".user-details-container h1").first().text().trim() || "N/A";
+    // Scrape data using the function
+    const profileData = await scrapeCodeChefProfile(username); //scrapeCodeChefProfile(username);
 
-    // Extract BASIC INFO
-    const data = await response.text();
-    const $ = cheerio.load(data); //data
+    // Send scraped data as JSON response
+    res.json(profileData); //profileData
 
-    // Load HTML into Cheerio
-    const response = await fetch(`https://www.codechef.com/users/${username}`); //encodeURIComponent(username)
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: "Failed to fetch profile", message: err.message });
+  }
+});
 
-    // In case of non-200 response, throw error with status code
-    if (!response.ok) throw new Error(`HTTP ${response.status}`); //response.status
-
-// Function: Scrape CodeChef profile data
-const scrapeCodeChefProfile = async (username) => {
-  try {
-    // Fetch CodeChef user profile page
-app.use(express.json());  //express.json()
-// Enable CORS and JSON parsing middleware
-app.use(cors()); //cors()
-
-const app = express();
-
-import express from "express";
-import cors from "cors";
-import * as cheerio from "cheerio";
-        .text()
+const PORT = 8080;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
