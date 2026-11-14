@@ -74,18 +74,13 @@ Total records: 4
 **Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-06T16:49:18.007Z  
+**Submitted:** 2026-11-14T16:42:03.329Z  
 
 ```cpp
-    // URL: jdbc:h2:./employeedb   Username: sa   Password: (empty)
-    private static final String URL = "dbc:h2:./employeedb";
-    private static final String USER = "sa";
-    private static final String PASSWORD = "";
-
-    private DBConnection() { }
 
     public static Connection getConnection() throws SQLException {
         // TODO: Return a connection using DriverManager.getConnection(URL, USER, PASSWORD)
+
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
