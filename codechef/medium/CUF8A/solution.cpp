@@ -1,33 +1,33 @@
-            console.log("Student saved:");
-            const savedStudent = await student.save();
-        try {
-        const student = new Student ({
-            name : "Anita Rao",
-            age: 20,
-            email: "anita.rao@example.com",
-            course: "Computer Science"
         });
+            }
+                required: true
+                type: String,
+            course: {
+            },
+                unique: true
+                required: true,
+                type: String,
+            email: {
+            },
+                required: true
+                type: Number,
+            },
+            age: {
+                type: String,
+                required: true
+            name: {
 
-        // Task 4: Create and save one student document
-        
+        // Task 2: Define studentSchema
+        const studentSchema = new mongoose.Schema({
         console.log("Connected to MongoDB");
         await mongoose.connect(MONGO_URI);
     try {
 async function run() {
 // Task 1: Connect to MongoDB
 
-const Student = mongoose.model('Student', studentSchema, 'students');
-            console.log(savedStudent);
-        } catch (saveErr) {
-            console.log(saveErr.message || saveErr);
-        }
-    } catch (err) {
-        console.log(err.message || err);
-    } finally {
-        // Task 5: Close the connection
-        await mongoose.connection.close();
-    }
-}
+const MONGO_URI = "mongodb://127.0.0.1:27017/studentdb";
+const mongoose = require('mongoose');
 
-run();
+// Connection string for the lab environment
 
+        // Task 3: Create the Student model
