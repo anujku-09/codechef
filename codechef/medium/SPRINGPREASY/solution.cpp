@@ -1,18 +1,19 @@
-package com.example.demo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
+package com.example.demo.service;
 
-@Component
-public class OfficeApp implements CommandLineRunner{
-    @Autowired
-    private EmployeeService employeeService;
+import com.example.demo.model.Student;
+import org.springframework.stereotype.Service;
+import java.util.List;
 
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println("Student Details:");
-        for(Employee s : employeeService.getAllStudents()) {
-            System.out.println("Name: " + s.getName() + ", Branch: " + s.getBranch());
-        }
+@Service
+public class StudentService {
+    private final List<Student> students = List.of(
+        new Student("Arjun", "Computer Science"),
+        new Student("Meera", "Electronics"),
+        new Student("Rahul", "Mechanical"),
+        new Student("Sneha", "Civil")
+    );
+
+    public List<Student> getAllStudents() {
+        return students;
     }
 }
