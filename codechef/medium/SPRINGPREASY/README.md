@@ -94,25 +94,26 @@ Name: Sneha, Branch: Civil
 **Language:** C++  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-21T10:42:43.424Z  
+**Submitted:** 2026-11-15T07:55:27.354Z  
 
 ```cpp
-package com.example.demo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
+package com.example.demo.service;
 
-@Component
-public class OfficeApp implements CommandLineRunner{
-    @Autowired
-    private EmployeeService employeeService;
+import com.example.demo.model.Student;
+import org.springframework.stereotype.Service;
+import java.util.List;
 
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println("Student Details:");
-        for(Employee s : employeeService.getAllStudents()) {
-            System.out.println("Name: " + s.getName() + ", Branch: " + s.getBranch());
-        }
+@Service
+public class StudentService {
+    private final List<Student> students = List.of(
+        new Student("Arjun", "Computer Science"),
+        new Student("Meera", "Electronics"),
+        new Student("Rahul", "Mechanical"),
+        new Student("Sneha", "Civil")
+    );
+
+    public List<Student> getAllStudents() {
+        return students;
     }
 }
 ```
