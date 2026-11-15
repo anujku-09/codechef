@@ -1,20 +1,32 @@
-    public Course updateCourse(@PathVariable Long id, @RequestBody Course updatedCourse) {
+            Optional<Course> course = courseRepository.findById(3L);
+            // READ ONE
 
-        Course course = courseRepository.findById(id).orElse(null);
+            courseRepository.findAll().forEach(System.out::println);
+            // READ ALL
+            System.out.println(">>> All courses:");
+            System.out.println(">>> Saved 5 courses");
 
-        if (course != null) {
-            course.setTitle(updatedCourse.getTitle());
-            course.setCredits(updatedCourse.getCredits());
-            return courseRepository.save(course);
-    @PutMapping("/{id}")
-    // Update Course
+            courseRepository.save(new Course("Database Systems",  3.0));
+            courseRepository.save(new Course("Spring Boot",       4.0));
+            courseRepository.save(new Course("Data Structures",   3.5));
+            courseRepository.save(new Course("Web Development",   2.5));
+            courseRepository.save(new Course("Java Basics",       3.0));
+            course.ifPresent(c -> System.out.println(">>> Found: " + c));
 
+            // UPDATE
+            courseRepository.findById(2L).ifPresent(c -> {
+                c.setCredits(5.0);
+                courseRepository.save(c);
+                System.out.println(">>> Updated: " + c);
+            });
+
+            // DELETE
+            courseRepository.deleteById(5L);
+            System.out.println(">>> Deleted course ID 5");
+
+            // FINAL LIST
+            System.out.println(">>> Final list:");
+            courseRepository.findAll().forEach(System.out::println);
+        };
     }
-        return courseRepository.findById(id).orElse(null);
-    public Course getCourseById(@PathVariable Long id) {
-    @GetMapping("/{id}")
-    // Get Course By ID
-
-    }
-        return courseRepository.findAll();
-        }
+}
