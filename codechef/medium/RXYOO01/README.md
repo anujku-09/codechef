@@ -60,27 +60,24 @@ abcd
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-22T14:19:20.177Z  
+**Submitted:** 2026-11-17T13:00:12.972Z  
 
 ```c_cpp
-int findLongestPalindromicSubsequenceLength(string inputString) {
-    int n = inputString.size();
-    if(n== 0)  return 0;
-     vector<int> dp(n, 0);
-     for(int i = n - 1; i >= 0; i--) {
-         dp[i] = 1;
-         int prev = 0;
-         for(int j = i + 1; j < n; j++) {
-             int temp = dp[j];
-             if(inputString[i] == inputString[j]) {
-                 dp[j] = 2 + prev;
-             } else {
-                 dp[j] = max(dp[j], dp[j - 1]);
-             }
-             prev = temp;
-         }
-     }
-    return dp[n-1];
+int findLongestPalindromicSubsequenceLength(string s) {
+    int n = s.size();
+    string rev = s;
+    reverse(rev.begin(), rev.end());
+    vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (s[i - 1] == rev[j - 1])
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+            else
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+    return dp[n][n];
 }
 ```
 
