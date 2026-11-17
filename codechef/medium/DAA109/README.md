@@ -45,7 +45,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-31T10:20:53.108Z  
+**Submitted:** 2026-11-17T19:49:37.157Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -73,6 +73,7 @@ int main() {
         cin >> u >> v;
 
         adj[u].push_back(v);
+        adj[v].push_back(u);
     }
 
     dfs(1);
