@@ -62,55 +62,36 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-31T17:24:27.909Z  
+**Submitted:** 2026-11-17T12:35:49.763Z  
 
 ```c_cpp
-
 #include <bits/stdc++.h>
 using namespace std;
 
 void solve() {
     string s;
     cin >> s;
-    int n = s.size();
-    vector<int> dp(n, 0);
-
+    stack<int> st;
+    st.push(-1);
     int ans = 0;
-    for (int i = 1; i < n; i++) {
-        if (s[i] == ')') {
-            if (s[i - 1] == '(') {
-                dp[i] = 2;
 
-                if (i >= 2) {
-                    dp[i] += dp[i - 2];
-                }
-            }
-            else {
-                int j = i - dp[i - 1] - 1;
-
-                if (j >= 0 && s[j] == '(') {
-                    dp[i] = dp[i - 1] + 2;
-
-                    if (j >= 1) {
-                        dp[i] += dp[j - 1];
-                    }
-                }
-            }
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == '(') {
+            st.push(i);
+        } else {
+            st.pop();
+            if (st.empty()) st.push(i);
+            else ans = max(ans, i - st.top());
         }
-        ans = max(ans, dp[i]);
     }
-    cout << ans << endl;
+    cout << ans << "\n";
 }
 
 int main() {
     int t;
     cin >> t;
-    while (t--) {
-        solve();
-    }
-    return 0;
+    while (t--) solve();
 }
-
 ```
 
 ---
