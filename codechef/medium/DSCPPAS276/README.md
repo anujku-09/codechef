@@ -53,7 +53,7 @@ There is no way to make S palindrome after deleting at most 1 character.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-17T11:22:31.866Z  
+**Submitted:** 2026-11-17T11:22:35.842Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
