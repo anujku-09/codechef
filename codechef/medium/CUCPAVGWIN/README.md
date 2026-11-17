@@ -66,40 +66,27 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-14T12:46:55.062Z  
+**Submitted:** 2026-11-17T11:06:18.069Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
     int n, k;
-    if (!(cin >> n >> k)) return 0;
-
+    cin >> n >> k;
     vector<long long> a(n);
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-    }
+    for (int i = 0; i < n; i++) cin >> a[i];
 
-    long long current_sum = 0;
-    for (int i = 0; i < k; i++) {
-        current_sum += a[i];
-    }
-
-    long long max_sum = current_sum;
+    long long sum = 0;
+    for (int i = 0; i < k; i++) sum += a[i];
+    long long best = sum;
 
     for (int i = k; i < n; i++) {
-        current_sum += a[i] - a[i - k];
-        max_sum = max(max_sum, current_sum);
+        sum += a[i] - a[i - k];
+        best = max(best, sum);
     }
-
-    double best_avg = (double)max_sum / k;
-    cout << fixed << setprecision(5) << best_avg << "\n";
-
-    return 0;
+    cout << fixed << setprecision(5) << (double)best / k << "\n";
 }
 ```
 
