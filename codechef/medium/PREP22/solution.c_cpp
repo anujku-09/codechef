@@ -1,0 +1,36 @@
+long long largestRectangleArea(int N, vector<int>& A) {
+    vector<int> left(N), right(N);
+    stack<int> st;
+
+    // Step 1: Left mein pehla chhota element ka index dhoondo
+    for (int i = 0; i < N; i++) {
+        while (!st.empty() && A[st.top()] >= A[i]) {
+            st.pop();
+        }
+        if (st.empty()) left[i] = -1;
+        else left[i] = st.top();
+        st.push(i);
+    }
+
+    // Stack khali karo dobara use karne ke liye
+    while (!st.empty()) st.pop();
+
+    // Step 2: Right mein pehla chhota element ka index dhoondo
+    for (int i = N - 1; i >= 0; i--) {
+        while (!st.empty() && A[st.top()] >= A[i]) {
+            st.pop();
+        }
+        if (st.empty()) right[i] = N;
+        else right[i] = st.top();
+        st.push(i);
+    }
+
+    // Step 3: Har bar ka area nikalo aur max le lo
+    long long ans = 0;
+    for (int i = 0; i < N; i++) {
+        long long height = A[i];
+        long long width = right[i] - left[i] - 1;
+        ans = max(ans, height * width);
+    }
+    return ans;
+}
