@@ -1,0 +1,9 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int myAtoi(const string &s) {
+    stringstream ss(s);
+    int ans = 0;
+    ss >> ans;
+    return ans;
+}
