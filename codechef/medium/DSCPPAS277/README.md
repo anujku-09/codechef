@@ -55,59 +55,29 @@ FLip all the elements as it is contiguous, then the arr would look like 1,1,1 an
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-04T13:52:19.759Z  
+**Submitted:** 2026-11-17T12:02:00.738Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
-
 using namespace std;
 
 int main() {
     int n;
     cin >> n;
     vector<int> a(n);
-    int ones = 0;
-    for(int i =0; i < n; i++){
-        cin >> a[i];
-        if(a[i] == 1){
-            ones++;
-        }
-    }
-    if(ones == n) {
-        cout << n - 1 << endl;
-        return 0;
-    }
-    vector<int> lft_ones(n, 0);
-    for(int i = 1; i < n; i++){
-        if(a[i - 1] == 1){
-            lft_ones[i] = lft_ones[i - 1] + 1;
-        }
-    }
-    vector<int> right_ones(n, 0);
-    for(int i = n - 2; i >= 0; i--){
-        if(a[i + 1] == 1){
-            right_ones[i] = right_ones[i + 1] + 1;
-        }
-    }
-    int ans = 0;
-    int i = 0;
-    while(i < n){
-        if(a[i] == 0){
-            int st = i;
-            while(i < n && a[i] == 0){
-                i++;
-            }
-            int end = i - 1;
-            int zero_cnt = end - st + 1;
-            int tot = lft_ones[st] + zero_cnt + right_ones[end];
-            ans = max(ans, tot);
-        } else {
-            i++;
-        }
-    }
-    cout << ans << "\n";
-}
+    for (int &x : a) cin >> x;
 
+    int l = 0, ans = 0, zero_groups = 0;
+    for (int r = 0; r < n; r++) {
+        if (a[r] == 0 && (r == 0 || a[r - 1] == 1)) zero_groups++;
+        while (zero_groups > 1) {
+            if (a[l] == 0 && a[l + 1] == 1) zero_groups--;
+            l++;
+        }
+        ans = max(ans, r - l + 1);
+    }
+    cout << (zero_groups == 0 ? n - 1 : ans) << "\n";
+}
 ```
 
 ---
