@@ -1,0 +1,26 @@
+class minimumStack {
+    stack<int> st, minSt;
+public:
+    minimumStack() {}
+
+    void addValue(int val) {
+        st.push(val);
+        if (minSt.empty() || val <= minSt.top())
+            minSt.push(val);
+        else
+            minSt.push(minSt.top());
+    }
+
+    void removeTopValue() {
+        st.pop();
+        minSt.pop();
+    }
+
+    int getTopValue() {
+        return st.top();
+    }
+
+    int getMinimumValue() {
+        return minSt.top();
+    }
+};
