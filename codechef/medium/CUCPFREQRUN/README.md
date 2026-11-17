@@ -69,46 +69,32 @@ ababbc
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-14T12:48:46.407Z  
+**Submitted:** 2026-11-17T11:11:23.934Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
 using namespace std;
 
-int longestStableRun(const string& s, int left, int right, int k) {
-    if (right - left < k) return 0;
+int solve(string s, int k) {
+    if (s.size() < k) return 0;
+    int f[26] = {0};
+    for (char c : s) f[c - 'a']++;
 
-    int freq[26] = {0};
-    for (int i = left; i < right; i++) {
-        freq[s[i] - 'a']++;
-    }
-
-    for (int mid = left; mid < right; mid++) {
-        if (freq[s[mid] - 'a'] > 0 && freq[s[mid] - 'a'] < k) {
-            int next_mid = mid + 1;
-            while (next_mid < right && freq[s[next_mid] - 'a'] < k) {
-                next_mid++;
-            }
-            return max(longestStableRun(s, left, mid, k),
-                       longestStableRun(s, next_mid, right, k));
+    for (int i = 0; i < s.size(); i++) {
+        if (f[s[i] - 'a'] < k) {
+            int j = i + 1;
+            while (j < s.size() && f[s[j] - 'a'] < k) j++;
+            return max(solve(s.substr(0, i), k), solve(s.substr(j), k));
         }
     }
-    return right - left;
+    return s.size();
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
     int n, k;
-    if (!(cin >> n >> k)) return 0;
-
     string s;
-    cin >> s;
-
-    cout << longestStableRun(s, 0, n, k) << "\n";
-
-    return 0;
+    cin >> n >> k >> s;
+    cout << solve(s, k) << "\n";
 }
 ```
 
