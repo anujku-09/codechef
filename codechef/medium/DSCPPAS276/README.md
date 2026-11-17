@@ -53,47 +53,26 @@ There is no way to make S palindrome after deleting at most 1 character.
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-10-04T13:26:38.843Z  
+**Submitted:** 2026-11-17T11:22:31.866Z  
 
 ```c_cpp
-#include <iostream>
-#include <string>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-bool isPalindromeRange(string &s, int l, int r){
-    while(l < r){
-        if(s[l] != s[r]){
-            return false;
-        }
-        l++;
-        r--;
-    }
-    return true;
-}
-
-bool validPalindrome(string s) {
-    int left = 0;
-    int right  = (int)s.length() - 1;
-    while(left < right){
-        if(s[left] != s[right]) {
-            return isPalindromeRange(s, left + 1, right) || isPalindromeRange(s, left, right - 1);
-        }
-        left++;
-        right--;
-    }
+bool pal(string &s, int l, int r) {
+    while (l < r)
+        if (s[l++] != s[r--]) return false;
     return true;
 }
 
 int main() {
-  int n;
-  cin>>n;
+    int n;
     string s;
-    cin >> s;
-    cout << (validPalindrome(s) ? "true" : "false") << endl;
-    return 0;
+    cin >> n >> s;
+    int l = 0, r = n - 1;
+    while (l < r && s[l] == s[r]) l++, r--;
+    cout << (pal(s, l + 1, r) || pal(s, l, r - 1) ? "true" : "false");
 }
-
 ```
 
 ---
