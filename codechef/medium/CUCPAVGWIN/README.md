@@ -66,7 +66,7 @@ Output
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-17T11:06:18.069Z  
+**Submitted:** 2026-11-18T12:01:54.240Z  
 
 ```c_cpp
 #include <bits/stdc++.h>
@@ -75,7 +75,7 @@ using namespace std;
 int main() {
     int n, k;
     cin >> n >> k;
-    vector<long long> a(n);
+    vector<int> a(n);
     for (int i = 0; i < n; i++) cin >> a[i];
 
     long long sum = 0;
