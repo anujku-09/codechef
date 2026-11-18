@@ -1,65 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+vector<int> adj[2005];
+int color[2005];
+
+bool dfs(int u, int c) {
+    color[u] = c;
+    for (int v : adj[u]) {
+        if (color[v] == -1 && !dfs(v, 1 - c)) return false;
+        if (color[v] == c) return false;
+    }
+    return true;
+}
+
 int main() {
     int t;
     cin >> t;
-
     while (t--) {
         int n, m;
         cin >> n >> m;
-
-        vector<int> adj[2005];
-
-        for (int i = 0; i < m; i++) {
+        for (int i = 1; i <= n; i++) {
+            adj[i].clear();
+            color[i] = -1;
+        }
+        while (m--) {
             int u, v;
             cin >> u >> v;
-
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
-
-        int color[2005];
-
+        bool ok = true;
         for (int i = 1; i <= n; i++) {
-            color[i] = -1;
+            if (color[i] == -1 && !dfs(i, 0)) ok = false;
         }
-
-        bool possible = true;
-
-        for (int i = 1; i <= n; i++) {
-            if (color[i] == -1) {
-                queue<int> q;
-                q.push(i);
-                color[i] = 0;
-
-                while (!q.empty()) {
-                    int u = q.front();
-                    q.pop();
-
-                    for (int v : adj[u]) {
-
-                        if (color[v] == -1) {
-                            color[v] = 1 - color[u];
-                            q.push(v);
-                        }
-                        else if (color[v] == color[u]) {
-                            possible = false;
-                            break;
-                        }
-                    }
-                    if (!possible)
-                        break;
-                }
-            }
-            if (!possible)
-                break;
-        }
-        if (possible)
-            cout << "YES" << endl;
-        else
-            cout << "NO" << endl;
+        cout << (ok ? "YES\n" : "NO\n");
     }
-
-    return 0;
 }
