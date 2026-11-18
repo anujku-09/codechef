@@ -1,17 +1,14 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-int main() {
-    string s;
-    getline(cin, s);
-
-    int i = s.size() - 1;
-    while (i >= 0 && s[i] == ' ') i--;
-
-    int len = 0;
-    while (i >= 0 && s[i] != ' ') {
-        len++;
-        i--;
+void solve(int open, int close, int n, string s, vector<string>& ans) {
+    if (open == n && close == n) {
+        ans.push_back(s);
+        return;
     }
-    cout << len << "\n";
+    if (open < n) solve(open + 1, close, n, s + "(", ans);
+    if (close < open) solve(open, close + 1, n, s + ")", ans);
+}
+
+vector<string> generate(int n) {
+    vector<string> ans;
+    solve(0, 0, n, "", ans);
+    return ans;
 }
