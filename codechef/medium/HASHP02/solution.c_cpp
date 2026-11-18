@@ -1,0 +1,15 @@
+int longest_palindrome_length(const string& s) {
+    int freq[26] = {0};
+    for (char c : s) freq[c - 'a']++;
+
+    int ans = 0;
+    bool odd = false;
+    for (int count : freq) {
+        ans += (count / 2) * 2;
+        if (count % 2 == 1) odd = true;
+    }
+    if (odd) ans++;
+    return ans;
+}
+
+
