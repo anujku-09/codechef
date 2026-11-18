@@ -50,7 +50,7 @@ There could be multiple grouping, for eg, 1 valid grouping is: {abc, acb, cba}, 
 **Language:** c_cpp  
 **Runtime:** N/A  
 **Memory:** N/A  
-**Submitted:** 2026-11-18T18:25:21.321Z  
+**Submitted:** 2026-11-18T18:29:51.738Z  
 
 ```c_cpp
 class Solution {
